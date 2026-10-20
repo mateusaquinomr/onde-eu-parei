@@ -4,17 +4,16 @@ import type { ChecklistItem, QuestionList, Note } from '../../types/study.types'
 import styles from './StudyWidget.module.css';
 
 interface StudyWidgetProps {
+    sessionKey: string;
     topicId: string;
     contentId: string;
     topicName: string;
     contentTitle: string;
     estimatedTime: number;
-    initialElapsedTime?: number;
-    onTimeUpdate?: (contentId: string, elapsedSeconds: number) => void;
-    onMinuteTick?: (contentId: string, minutes: number) => void;
-    onCompleteWithConfirmation?: (contentId: string, totalSeconds: number, contentCompleted: boolean) => void;
-    onFinishContent?: (contentId: string, totalSeconds: number) => void;
-    onContinue?: (contentId: string) => void;
+    onTimeUpdate?: (elapsedSeconds: number) => void;
+    onMinuteTick?: (minutes: number) => void;
+    onFinishContent?: (contentId: string, elapsedSecondsAtThatMoment: number) => void;
+    onCompleteBlock?: (sessionKey: string, totalSeconds: number) => void;
     checklist?: ChecklistItem[];
     onUpdateChecklist?: (items: ChecklistItem[]) => void;
     questionLists?: QuestionList[];
@@ -25,17 +24,16 @@ interface StudyWidgetProps {
 }
 
 export function StudyWidget({
+    sessionKey,
     topicId,
     contentId,
     topicName,
     contentTitle,
     estimatedTime,
-    initialElapsedTime,
     onTimeUpdate,
     onMinuteTick,
-    onCompleteWithConfirmation,
     onFinishContent,
-    onContinue,
+    onCompleteBlock,
     checklist,
     onUpdateChecklist,
     questionLists,
@@ -48,17 +46,16 @@ export function StudyWidget({
         <div className={`${styles.studyWidget} ${className}`}>
             <div className={styles.timerSection}>
                 <Timer
+                    sessionKey={sessionKey}
                     topicId={topicId}
                     contentId={contentId}
                     topicName={topicName}
                     contentTitle={contentTitle}
                     estimatedTime={estimatedTime}
-                    initialElapsedTime={initialElapsedTime}
                     onTimeUpdate={onTimeUpdate}
                     onMinuteTick={onMinuteTick}
-                    onCompleteWithConfirmation={onCompleteWithConfirmation}
                     onFinishContent={onFinishContent}
-                    onContinue={onContinue}
+                    onCompleteBlock={onCompleteBlock}
                 />
             </div>
 

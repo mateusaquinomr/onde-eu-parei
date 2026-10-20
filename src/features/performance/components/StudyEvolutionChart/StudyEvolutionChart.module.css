@@ -1,8 +1,8 @@
 .container {
-    background: white;
+    background: var(--surface-card);
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-1);
 }
 
 .insight {
@@ -11,13 +11,11 @@
     gap: 8px;
     margin: 12px 0;
     padding: 8px 12px;
-    /* background: #f0f9ff; */
     border-radius: 8px;
 }
 
 .insightIcon {
-    color: #f59e0b;
-
+    color: var(--color-secondary);
     font-size: 20px;
 }
 
@@ -47,7 +45,7 @@
 
 .bar {
     width: 100%;
-    background: #3b82f6;
+    background: var(--color-primary);
     border-radius: 4px 4px 0 0;
     transition: height 0.3s ease;
     position: relative;
@@ -55,7 +53,7 @@
 }
 
 .bar:hover {
-    background: #2563eb;
+    background: var(--color-primary-hover);
 }
 
 .barValue {
@@ -64,7 +62,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 11px;
-    color: #1f2937;
+    color: var(--text-heading);
     font-weight: 500;
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -76,23 +74,5 @@
 
 .barLabel {
     font-size: 11px;
-    color: #6b7280;
-}
-
-@media (prefers-color-scheme: dark) {
-    .container {
-        background: #1f2937;
-    }
-
-    .insight {
-        background: #1e3a5f;
-    }
-
-    .barLabel {
-        color: #9ca3af;
-    }
-
-    .barValue {
-        color: #e5e7eb;
-    }
+    color: var(--text-body-secondary);
 }

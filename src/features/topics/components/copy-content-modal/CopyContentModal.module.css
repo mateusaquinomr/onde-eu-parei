@@ -1,0 +1,128 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--surface-overlay-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: var(--surface-modal);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: var(--surface-shadow-4);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--surface-border-muted);
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin: 0;
+}
+
+.closeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-body-secondary);
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    background: var(--surface-button-secondary);
+    color: var(--color-primary);
+}
+
+.content {
+    padding: 20px 24px;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: var(--text-body-secondary);
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+}
+
+.label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-body-secondary);
+    margin-bottom: 6px;
+}
+
+.select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--surface-border-muted);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--surface-button-secondary);
+    color: var(--text-body-secondary);
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--surface-border-muted);
+}
+
+.cancelButton {
+    background: transparent;
+    border: 1px solid var(--surface-border-muted);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-body-secondary);
+    cursor: pointer;
+}
+
+.cancelButton:hover {
+    background: var(--surface-button-secondary);
+    color: var(--color-primary);
+}
+
+.confirmButton {
+    background: var(--color-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-inverse);
+    cursor: pointer;
+}
+
+.confirmButton:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+}
+
+.confirmButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

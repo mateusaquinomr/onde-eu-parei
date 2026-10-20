@@ -1,35 +1,70 @@
 .layout {
+    position: relative;
+
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: 88px 1fr;
+    grid-template-rows: 72px 1fr;
+
     min-height: 100vh;
-    /* background-color: #0d0d0d; */
+
+    background: var(--page-background);
+
+    isolation: isolate;
+}
+
+/* Imagem de fundo + blur + filtro */
+.layout::before {
+    content: "";
+    position: fixed;
+    inset: -20px;
+
+    background-image:
+        linear-gradient(var(--layout-background-overlay),
+            var(--layout-background-overlay)),
+        url('/src/assets/backgrounds/private-layout-background-2.webp');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(16px);
+
+    z-index: -1;
 }
 
 .layout> :first-child {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    position: sticky;
+    position: fixed;
+
     top: 0;
+    left: 0;
+    right: 0;
+
+    height: 72px;
+
     z-index: 100;
 }
 
 .layout> :nth-child(2) {
-    grid-column: 1;
-    grid-row: 2;
-    position: sticky;
+    position: fixed;
+
     top: 72px;
-    align-self: start;
+    left: 0;
+
+    width: 88px;
     height: calc(100vh - 72px);
+
+    z-index: 90;
 }
 
 .main {
     grid-column: 2;
     grid-row: 2;
-    padding: 2rem 0;
-    max-width: 1200px;
+
     width: 100%;
+    max-width: 1200px;
+
     margin: 0 auto;
-    /* background-color: #0d0d0d; */
-    padding-top: calc(1.5rem - 4px);
+
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
 }

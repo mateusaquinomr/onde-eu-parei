@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--surface-overlay-base);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,14 +12,14 @@
 }
 
 .modal {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-modal);
     border-radius: 16px;
     width: 90%;
     max-width: 900px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-4);
 }
 
 .header {
@@ -27,33 +27,34 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    border-bottom: 1px solid var(--surface-border-muted);
 }
 
 .title {
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
 }
 
 .closeButton {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
     padding: 0;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 35px;
     transition: background-color 0.2s;
 }
 
 .closeButton:hover {
-    background-color: var(--color-bg-secondary, #f3f4f6);
+    background-color: var(--surface-button-secondary);
+    color: var(--color-primary) !important;
 }
 
 .closeButton .material-icons {
@@ -68,7 +69,7 @@
 
 .footer {
     padding: 1rem 1.5rem;
-    border-top: 1px solid var(--color-border, #e5e7eb);
+    border-top: 1px solid var(--surface-border-muted);
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
@@ -82,8 +83,8 @@
 }
 
 .templateCard {
-    background: var(--color-bg-secondary, #f9fafb);
-    border: 2px solid var(--color-border, #e5e7eb);
+    background: var(--surface-panel);
+    border: 2px solid var(--surface-border-muted);
     border-radius: 16px;
     padding: 1.5rem;
     text-align: center;
@@ -96,8 +97,8 @@
 }
 
 .templateCard:hover:not(.disabled) {
-    border-color: var(--color-primary, #3b82f6);
-    background: var(--color-primary-light, #eff6ff);
+    border-color: var(--color-primary);
+    background: var(--color-primary-subtle);
     transform: translateY(-2px);
 }
 
@@ -108,9 +109,9 @@
 }
 
 .templateCard.selected {
-    border-color: var(--color-primary, #3b82f6);
-    background: var(--color-primary-light, #eff6ff);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    border-color: var(--color-primary);
+    background: var(--color-primary-subtle);
+    box-shadow: 0 4px 12px var(--color-primary-subtle);
 }
 
 .templateIcon {
@@ -121,18 +122,18 @@
     font-size: 1.125rem;
     font-weight: 600;
     margin: 0;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
 }
 
 .templateDescription {
     font-size: 0.875rem;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
     margin: 0;
 }
 
 .disabledBadge {
-    background: var(--color-bg-tertiary, #e5e7eb);
-    color: var(--color-text-secondary, #6b7280);
+    background: var(--surface-border-muted);
+    color: var(--text-body-secondary);
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
     font-size: 0.75rem;
@@ -151,12 +152,12 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
-    background: var(--color-bg-secondary, #f9fafb);
+    background: var(--surface-panel);
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.875rem;
-    color: var(--color-text-secondary, #6b7280);
-    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    color: var(--text-body-secondary);
+    border-bottom: 1px solid var(--surface-border-muted);
     margin-bottom: 0.5rem;
 }
 
@@ -195,61 +196,34 @@
 }
 
 .topicsList::-webkit-scrollbar-track {
-    background: var(--color-bg-tertiary, #f1f1f1);
+    background: var(--surface-border-muted);
     border-radius: 3px;
 }
 
 .topicsList::-webkit-scrollbar-thumb {
-    background: var(--color-border, #cbd5e1);
+    background: var(--surface-border);
     border-radius: 3px;
 }
 
 .topicsList::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-secondary, #94a3b8);
+    background: var(--surface-border-strong);
 }
 
 .emptyTopics {
     text-align: center;
     padding: 3rem;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
-.button {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: none;
-    font-size: 0.875rem;
+.footer button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* color: var(--text-body-secondary); */
 }
 
-.buttonPrimary {
-    background: var(--color-primary, #3b82f6);
-    color: white;
-}
-
-.buttonPrimary:hover {
-    background: var(--color-primary-dark, #2563eb);
-}
-
-.buttonSecondary {
-    background: var(--color-bg-secondary, #f3f4f6);
-    color: var(--color-text-primary, #1f2937);
-    border: 1px solid var(--color-border, #e5e7eb);
-}
-
-.buttonSecondary:hover {
-    background: var(--color-bg-tertiary, #e5e7eb);
-}
-
-.buttonGhost {
-    background: none;
-    color: var(--color-text-secondary, #6b7280);
-}
-
-.buttonGhost:hover {
-    background: var(--color-bg-secondary, #f3f4f6);
+.footer button:hover {
+    /* color: var(--color-primary) !important; */
 }
 
 @media (max-width: 768px) {
@@ -278,29 +252,5 @@
 
     .footer button {
         flex: 1;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .modal {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .templateCard {
-        background: var(--color-bg-tertiary, #374151);
-        border-color: var(--color-border-dark, #4b5563);
-    }
-
-    .editorHeader {
-        background: var(--color-bg-tertiary, #374151);
-        border-color: var(--color-border-dark, #4b5563);
-    }
-
-    .topicsList::-webkit-scrollbar-track {
-        background: var(--color-bg-tertiary, #374151);
-    }
-
-    .topicsList::-webkit-scrollbar-thumb {
-        background: var(--color-border-dark, #4b5563);
     }
 }

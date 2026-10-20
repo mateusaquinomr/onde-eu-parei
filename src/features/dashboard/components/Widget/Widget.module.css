@@ -1,7 +1,9 @@
 .widget {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-card);
     border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-card-shadow);
+    border: 1px solid var(--surface-card-border);
+    backdrop-filter: var(--surface-card-blur);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -17,36 +19,38 @@
 }
 
 .widget.default {
-    background: var(--color-bg-primary, #ffffff);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: var(--surface-card);
+    box-shadow: var(--surface-card-shadow);
 }
 
 .widget.primary {
-    background: var(--color-primary, #3b82f6);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    box-shadow: var(--surface-shadow-2);
 }
 
 .widget.primary .widgetTitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-heading);
 }
 
 .widget.secondary {
-    background: var(--color-secondary-subtle, #fef3c7);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-card-shadow);
 }
 
 .widget.secondary .widgetTitle {
-    color: var(--color-secondary, #d97706);
+    color: var(--text-heading-card);
 }
 
 .widget.transparent {
     background: transparent;
     box-shadow: none;
+    border: none;
+    backdrop-filter: none;
 }
 
 .widget.none {
     background: transparent;
     box-shadow: none;
+    border: none;
+    backdrop-filter: none;
 }
 
 .widget.none .widgetHeader {
@@ -60,7 +64,7 @@
 .widgetTitle {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-heading-card);
     letter-spacing: 0.5px;
     margin: 0;
 }
@@ -72,18 +76,4 @@
 .widgetContent {
     flex: 1;
     padding: 0rem 1rem 1rem 1rem;
-}
-
-@media (prefers-color-scheme: dark) {
-    .widget.default {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .widget.secondary {
-        background: rgba(245, 158, 11, 0.15);
-    }
-
-    .widgetTitle {
-        color: var(--color-text-tertiary, #9ca3af);
-    }
 }

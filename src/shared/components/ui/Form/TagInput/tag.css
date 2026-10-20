@@ -15,9 +15,14 @@
 
     border: 1px solid var(--input-border);
     border-radius: var(--radius-md);
-    background-color: var(--form-bg);
+    background-color: var(--input-bg);
 
     cursor: text;
+}
+
+.tag-input__container:focus-within {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px var(--color-primary-subtle);
 }
 
 .tag-input__container input {
@@ -30,6 +35,12 @@
 
     font-size: var(--font-size-md);
     font-family: inherit;
+    background: transparent;
+    color: var(--input-text);
+}
+
+.tag-input__container input::placeholder {
+    color: var(--input-placeholder);
 }
 
 .tag {
@@ -40,20 +51,20 @@
     padding: 4px 10px 4px 15px;
     border-radius: 999px;
 
-    background-color: #00a8e8;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--text-inverse);
 
     font-size: var(--font-size-sm);
 }
 
 .tag span {
-    color: white !important;
+    color: var(--text-inverse) !important;
 }
 
 .tag__remove {
     background: none;
     border: none;
-    color: #fff;
+    color: var(--text-inverse);
 
     cursor: pointer;
     font-size: 14px;

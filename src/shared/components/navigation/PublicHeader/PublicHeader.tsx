@@ -15,8 +15,8 @@ export const PublicHeader = () => {
                 </Link>
 
                 <div className={styles.actions}>
-                    <Link to="/login">
-                        <Button variant="ghost">Entrar</Button>
+                    <Link to="/login" className={styles.entrar}>
+                        <Button >Entrar</Button>
                     </Link>
                     <Link to="/register">
                         <Button variant="primary">Cadastrar</Button>

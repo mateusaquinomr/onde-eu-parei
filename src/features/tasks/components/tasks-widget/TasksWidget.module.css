@@ -11,9 +11,9 @@
 }
 
 .title {
-    font-size: 0.875rem;
+    font-size: var(--font-size-lg);
     font-weight: 600;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-heading);
     letter-spacing: 0.5px;
     margin: 0;
 }
@@ -26,8 +26,8 @@
     height: 28px;
     border-radius: 50%;
     border: none;
-    background: #eff6ff;
-    color: #3b82f6;
+    background: var(--surface-button-primary);
+    color: var(--color-text-primary);
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -37,7 +37,7 @@
 }
 
 .addButton:hover {
-    background: #dbeafe;
+    background: var(--surface-button-primary-hover);
 }
 
 .form {
@@ -45,28 +45,28 @@
     flex-direction: column;
     gap: 8px;
     padding: 10px;
-    background: #f9fafb;
+    background: var(--surface-card);
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border);
 }
 
 .input,
 .textarea,
 .dateInput {
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
     border-radius: 6px;
     padding: 6px 8px;
     font-size: 13px;
     font-family: inherit;
-    background: white;
-    color: #1f2937;
+    background: var(--surface-card);
+    color: var(--text-body-secondary);
 }
 
 .input:focus,
 .textarea:focus,
 .dateInput:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: var(--input-border-focus);
 }
 
 .textarea {
@@ -82,22 +82,41 @@
 
 .dateInput {
     flex: 1;
+    min-width: 0;
+}
+
+.editalSelect {
+    border: 1px solid var(--surface-border-muted);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--surface-card);
+    color: var(--text-body-secondary);
+    width: 100%;
+}
+
+.editalSelect:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    background-color: var(--surface-dropdown);
 }
 
 .saveButton {
-    background: #3b82f6;
-    color: white;
+    background: var(--color-primary);
+    color: var(--text-inverse);
     border: none;
     border-radius: 6px;
-    padding: 6px 14px;
+    padding: 6px 12px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .saveButton:hover:not(:disabled) {
-    background: #2563eb;
+    background: var(--color-primary-hover);
 }
 
 .saveButton:disabled {
@@ -111,7 +130,7 @@
     align-items: center;
     gap: 6px;
     padding: 20px 0;
-    color: #9ca3af;
+    color: var(--text-body-secondary);
 }
 
 .emptyState .material-icons {
@@ -136,17 +155,17 @@
 
 .item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
     padding: 8px;
     border-radius: 8px;
-    background: #f9fafb;
-    border: 1px solid #f3f4f6;
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border-muted);
 }
 
 .overdueItem {
-    background: #fef2f2;
-    border-color: #fecaca;
+    background: var(--surface-button-secondary);
+    border-color: var(--color-primary);
 }
 
 .completedItem {
@@ -157,10 +176,9 @@
     flex-shrink: 0;
     width: 18px;
     height: 18px;
-    margin-top: 1px;
-    border-radius: 5px;
-    border: 2px solid #cbd5e1;
-    background: white;
+    border: 2px solid var(--surface-border);
+    border-radius: 35px;
+    background: var(--surface-card);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -169,13 +187,14 @@
 }
 
 .completedItem .checkbox {
-    background: #10b981;
-    border-color: #10b981;
+    background: var(--color-success);
+    border-color: var(--color-success);
 }
 
 .checkbox .material-icons {
-    font-size: 13px;
-    color: white;
+    font-size: 12px;
+    padding: 12px;
+    color: var(--text-inverse);
 }
 
 .itemContent {
@@ -187,20 +206,38 @@
 
 .itemTitle {
     font-size: 13px;
-    color: #1f2937;
+    color: var(--text-body-secondary);
     word-break: break-word;
 }
 
 .completedItem .itemTitle {
     text-decoration: line-through;
-    color: #9ca3af;
+    color: var(--text-muted);
 }
 
 .itemDescription {
     font-size: 11px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     margin-top: 2px;
     word-break: break-word;
+}
+
+.editalBadge {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    width: fit-content;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-subtle);
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin-top: 4px;
+}
+
+.editalBadge .material-icons {
+    font-size: 11px;
 }
 
 .dateBadge {
@@ -210,21 +247,21 @@
     flex-shrink: 0;
     font-size: 10px;
     font-weight: 600;
-    color: #6b7280;
-    background: #f3f4f6;
+    color: var(--color-primary);
+    background: var(--surface-button-secondary);
     padding: 3px 6px;
-    border-radius: 6px;
+    border-radius: 16px;
     white-space: nowrap;
 }
 
 .overdueBadge {
-    color: #dc2626;
-    background: #fee2e2;
+    color: var(--color-primary);
+    background: none;
 }
 
 .overdueBadge .material-icons {
     font-size: 12px;
-    color: #dc2626;
+    color: var(--color-primary);
 }
 
 .deleteButton {
@@ -234,25 +271,26 @@
     justify-content: center;
     width: 20px;
     height: 20px;
+    padding: 12px;
     border: none;
     background: transparent;
-    color: #cbd5e1;
+    color: var(--text-body-secondary);
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 34px;
 }
 
 .deleteButton .material-icons {
-    font-size: 15px;
+    font-size: 5px;
 }
 
 .deleteButton:hover {
-    color: #ef4444;
-    background: #fee2e2;
+    color: var(--feedback-error-text);
+    background: var(--feedback-error-bg);
 }
 
 .loading {
     font-size: 13px;
-    color: #9ca3af;
+    color: var(--text-muted);
     padding: 20px 0;
     text-align: center;
 }
@@ -262,44 +300,6 @@
 }
 
 .list::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: var(--surface-border);
     border-radius: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .title {
-        color: #e5e7eb;
-    }
-
-    .form {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .input,
-    .textarea,
-    .dateInput {
-        background: #111827;
-        border-color: #374151;
-        color: #e5e7eb;
-    }
-
-    .item {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .overdueItem {
-        background: #451a1a;
-        border-color: #7f1d1d;
-    }
-
-    .itemTitle {
-        color: #e5e7eb;
-    }
-
-    .dateBadge {
-        background: #374151;
-        color: #9ca3af;
-    }
 }

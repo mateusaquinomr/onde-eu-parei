@@ -98,7 +98,7 @@ export function RegisterStep2() {
                     <div className={styles.field}>
                         <Text variant="label">Foto de perfil</Text>
                         <div className={styles.avatarPlaceholder}>
-                            <span className={styles.avatarIcon}>📷</span>
+                            {/* <span className={styles.avatarIcon}>📷</span> */}
                             <Text variant="caption" className={styles.avatarText}>
                                 Em breve você poderá adicionar uma foto
                             </Text>

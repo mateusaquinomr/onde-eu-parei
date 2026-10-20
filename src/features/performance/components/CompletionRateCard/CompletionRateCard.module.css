@@ -1,8 +1,8 @@
 .card {
-    background: white;
+    background: var(--surface-card);
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-1);
 }
 
 .content {
@@ -16,7 +16,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: #eff6ff;
+    background: var(--surface-card);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,7 +25,7 @@
 .rateValue {
     font-size: 24px;
     font-weight: 600;
-    color: #3b82f6;
+    color: var(--color-primary);
 }
 
 .stats {
@@ -40,7 +40,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 6px 0;
-    border-bottom: 1px dashed #e5e7eb;
+    border-bottom: 1px dashed var(--surface-border-muted);
 }
 
 .statRow:last-child {
@@ -49,37 +49,11 @@
 
 .statLabel {
     font-size: 12px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .statValue {
     font-size: 14px;
     font-weight: 600;
-    color: #1f2937;
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: #1f2937;
-    }
-
-    .rateCircle {
-        background: #1e3a5f;
-    }
-
-    .rateValue {
-        color: #60a5fa;
-    }
-
-    .statLabel {
-        color: #9ca3af;
-    }
-
-    .statValue {
-        color: #e5e7eb;
-    }
-
-    .statRow {
-        border-bottom-color: #374151;
-    }
+    color: var(--text-heading);
 }

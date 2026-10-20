@@ -1,7 +1,7 @@
 :root {
 
     --input-bg: var(--form-bg);
-    --input-text: var(--form-text);
+    --input-text: var(--text-body-secondary);
     --input-placeholder: var(--form-placeholder);
     --input-label: var(--form-label);
     --input-helper: var(--form-helper);

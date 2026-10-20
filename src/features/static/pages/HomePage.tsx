@@ -13,12 +13,14 @@ export const HomePage = () => {
                 <div className={styles.heroContent}>
 
                     <Text as="h1" variant="pageTitle" className={styles.title}>
-                        Organize seus estudos
+                        A quantida de conteúdos assusta.
                         <br />
-                        <span className={styles.highlight}>com inteligência</span>
+                        <span className={styles.highlight}>A organização resolve.</span>
                     </Text>
                     <Text variant="body" className={styles.subtitle}>
-                        <b>Versão demo</b> do projeto OndeEuParei, <br></br> plataforma que ajuda a gerenciar ciclos de estudo, <br></br>
+                        <b>Versão demo</b> do projeto OndeEuParei, <br></br> plataforma que para gerenciar o estudo para concursos e ENEM. <br></br>
+                        Você poderá importar editais com as matérias/tópicos e seus conteúdos,
+                        <br></br>  configurar ciclos de estudo,
                         acompanhar o progresso e não  perder o ritmo de estudo.
                     </Text>
                     <div className={styles.buttons}>

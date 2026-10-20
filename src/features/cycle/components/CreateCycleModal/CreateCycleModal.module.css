@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f3f4f6;
+    background-color: var(--surface-muted);
     border-radius: 50px;
     padding: 4px;
 }
@@ -21,9 +21,9 @@
     bottom: 4px;
     left: 4px;
     width: calc(50% - 4px);
-    background-color: white;
+    background-color: var(--surface-card);
     border-radius: 40px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-1);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
 }
@@ -49,15 +49,15 @@
     position: relative;
     z-index: 2;
     background: transparent;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .stepOption:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--surface-hover);
 }
 
 .stepOption.active {
-    color: #3b82f6;
+    color: var(--color-primary);
 }
 
 .stepNumber {
@@ -74,8 +74,8 @@
 }
 
 .stepOption.active .stepNumber {
-    background: #3b82f6;
-    color: white;
+    background: var(--color-primary);
+    color: var(--text-inverse);
 }
 
 .stepLabel {
@@ -102,7 +102,7 @@
 }
 
 .rulesHint {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     margin-top: -4px;
 }
 
@@ -117,39 +117,9 @@
     gap: 12px;
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--surface-border-muted);
 }
 
-@media (prefers-color-scheme: dark) {
-    .stepSliderContainer {
-        background-color: #374151;
-    }
-
-    .stepSlider {
-        background-color: #1f2937;
-    }
-
-    .stepOption:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .stepOption.active {
-        color: #60a5fa;
-    }
-
-    .stepOption.active .stepNumber {
-        background: #3b82f6;
-        color: white;
-    }
-
-    .rulesHint {
-        color: #9ca3af;
-    }
-
-    .actions {
-        border-top-color: #374151;
-    }
-}
 
 @media (max-width: 768px) {
     .hoursRow {

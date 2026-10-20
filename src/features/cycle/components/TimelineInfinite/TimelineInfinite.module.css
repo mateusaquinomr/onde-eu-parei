@@ -56,7 +56,7 @@
 
 .timelineItem.active .card {
     border-width: 2px;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: var(--action-outline-bg-hover);
 }
 
 .lineContainer {
@@ -73,7 +73,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -82,25 +82,25 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #e5e7eb;
-    border: 2px solid white;
+    background: var(--surface-border-muted);
+    border: 2px solid var(--surface-card);
     position: relative;
     z-index: 2;
     margin-top: 14px;
 }
 
 .activeDot {
-    background: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    background: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-subtle);
     transform: scale(1.15);
 }
 
 .card {
     flex: 1;
-    background: #f9fafb;
+    background: var(--surface-card);
     border-radius: 10px;
     padding: 10px 16px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
     transition: all 0.3s ease;
     display: flex;
     justify-content: space-between;
@@ -110,41 +110,45 @@
 }
 
 .activeCard {
-    background: #eff6ff;
-    border-color: #3b82f6;
+    background: var(--surface-button-secondary-active);
+    border-color: var(--color-primary);
     border-width: 2px;
 }
 
+.card:hover:not(.activeCard) {
+    background: var(--surface-button-secondary-hover);
+}
+
 .completedCard {
-    background: #f0fdf4;
-    border-color: #86efac;
+    background: var(--color-success-subtle);
+    border-color: var(--color-success);
 }
 
 .completedCard .topicName {
-    color: #166534;
+    color: var(--color-success);
     text-decoration: line-through;
-    text-decoration-color: #86efac;
+    text-decoration-color: var(--color-success);
 }
 
 .completedCard .lastContentText,
 .completedCard .lastContentLabel {
-    color: #4ade80;
+    color: var(--color-success);
 }
 
 .completedCard .position {
-    background-color: #4ade80;
-    color: #fff;
+    background-color: var(--color-success);
+    color: var(--text-inverse);
 }
 
 .completedDot {
-    background: #22c55e;
+    background: var(--color-success);
 }
 
 .completedBadge {
     display: flex;
     align-items: center;
     gap: 4px;
-    color: #16a34a;
+    color: var(--color-success);
     font-size: 11px;
     font-weight: 700;
     white-space: nowrap;
@@ -152,7 +156,7 @@
 
 .completedBadge .material-icons {
     font-size: 16px;
-    color: #22c55e;
+    color: var(--color-success);
 }
 
 .leftSide {
@@ -176,8 +180,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e5e7eb;
-    color: #6b7280;
+    background: var(--surface-border-muted);
+    color: var(--text-body-secondary);
     font-size: 11px;
     font-weight: 600;
     border-radius: 50%;
@@ -185,17 +189,21 @@
 }
 
 .activePosition {
-    background: #3b82f6;
-    color: white;
+    background: var(--action-primary-bg);
+    color: var(--text-inverse);
 }
 
 .topicName {
-    font-weight: 500;
-    color: #1f2937;
+    font-weight: 700;
+    color: var(--text-body-secondary);
     font-size: 14px;
     white-space: normal;
     word-break: break-word;
     line-height: 1.4;
+}
+
+.activeCard .topicName {
+    color: var(--color-primary);
 }
 
 .lastContent {
@@ -207,15 +215,15 @@
 }
 
 .lastContentLabel {
-    color: #9ca3af;
+    color: var(--text-muted);
 }
 
 .lastContentText {
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .activeCard .lastContentText {
-    color: #3b82f6;
+    color: var(--action-outline-text);
 }
 
 .rightSide {
@@ -234,62 +242,19 @@
 
 .timeInfo span:first-child {
     font-size: 16px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .minutes {
     font-weight: 600;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-size: 11px;
     line-height: 1;
     white-space: nowrap;
 }
 
 .activeCard .minutes {
-    color: #3b82f6;
-}
-
-@media (prefers-color-scheme: dark) {
-    .line {
-        background: #374151;
-    }
-
-    .dot {
-        background: #374151;
-        border-color: #1f2937;
-    }
-
-    .card {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .activeCard {
-        background: #1e3a5f;
-        border-color: #3b82f6;
-    }
-
-    .position {
-        background: #374151;
-        color: #9ca3af;
-    }
-
-    .activePosition {
-        background: #3b82f6;
-        color: white;
-    }
-
-    .topicName {
-        color: #e5e7eb;
-    }
-
-    .lastContentText {
-        color: #9ca3af;
-    }
-
-    .activeCard .lastContentText {
-        color: #60a5fa;
-    }
+    color: var(--color-primary);
 }
 
 @media (max-width: 768px) {

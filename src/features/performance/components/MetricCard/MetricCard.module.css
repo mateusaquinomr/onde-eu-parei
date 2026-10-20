@@ -1,8 +1,8 @@
 .card {
-    background: white;
+    background: var(--surface-card);
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-1);
     display: flex;
     align-items: flex-start;
     gap: 12px;
@@ -11,7 +11,7 @@
 
 .card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-2);
 }
 
 .icon {
@@ -24,7 +24,7 @@
 }
 
 .label {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     margin-bottom: 4px;
 }
 
@@ -39,13 +39,13 @@
 .value {
     font-size: 24px;
     font-weight: 600;
-    color: #1f2937;
+    color: var(--text-heading);
 }
 
 .unit {
     font-size: 14px;
     font-weight: 400;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     margin-left: 2px;
 }
 
@@ -56,19 +56,19 @@
     font-size: 12px;
     padding: 2px 6px;
     border-radius: 16px;
-    background: #f3f4f6;
+    background: var(--surface-card);
 }
 
 .trendUp {
-    color: #10b981;
+    color: var(--color-success);
 }
 
 .trendDown {
-    color: #ef4444;
+    color: var(--feedback-error-text);
 }
 
 .trendNeutral {
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .trendIcon {
@@ -80,27 +80,5 @@
 }
 
 .trendComparison {
-    color: #6b7280;
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: #1f2937;
-    }
-
-    .label {
-        color: #9ca3af;
-    }
-
-    .value {
-        color: #f3f4f6;
-    }
-
-    .unit {
-        color: #9ca3af;
-    }
-
-    .trend {
-        background: #374151;
-    }
+    color: var(--text-body-secondary);
 }

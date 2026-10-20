@@ -1,7 +1,7 @@
 import type { Topic } from '../../topics/types/topic.types';
 
 export type ConditionType = '=' | '>' | '<' | '>=' | '<=' | '!=';
-export type LogicalOperator = 'deve' | 'não deve';
+export type LogicalOperator = 'deve estar' | 'não deve estar';
 export type TimeRelation = 'antes' | 'depois' | 'entre';
 
 export interface CycleRule {

@@ -1,5 +1,5 @@
 .container {
-    background: var(--color-surface, #ffffff);
+    /* background: var(--color-surface, #ffffff); */
     border-radius: var(--radius-lg, 16px);
     width: 100%;
     max-width: 500px;
@@ -20,15 +20,18 @@
 }
 
 .topicName {
-    color: #5d9ddd;
-    font-size: 1.2rem;
+    color: var(--color-primary);
+    font-size: var(--font-size-xl);
     font-weight: 700;
     margin: 0 0 4px 0;
 }
 
 .contentTitle {
-    color: var(--color-text-secondary, #5a6c7e);
-    font-size: 0.75rem;
+    color: var(--text-body);
+    /* color: var(--color-primary); */
+    font-weight: 500;
+    font-size: var(--font-size-lg);
+    /* font-size: 0.75rem; */
     margin: 0;
 }
 
@@ -39,8 +42,8 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: #f1f5f9;
-    color: #64748b;
+    background: var(--surface-button-secondary);
+    color: var(--color-secondary);
     border: none;
     cursor: pointer;
     flex-shrink: 0;
@@ -52,13 +55,13 @@
 }
 
 .finishIconButton:hover {
-    background: #e2e8f0;
-    color: #334155;
+    background: var(--surface-button-secondary-hover);
+    color: var(--color-primary-hover);
 }
 
 .completedBadge {
-    background: #10b981;
-    color: white;
+    background: var(--color-success);
+    color: var(--text-inverse);
     padding: 4px 10px;
     border-radius: 9999px;
     font-size: 0.7rem;
@@ -66,6 +69,28 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     align-self: center;
+}
+
+.reachedTargetBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--color-success-subtle);
+    color: var(--color-success);
+    padding: 6px 12px;
+    width: 100%;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.reachedTargetBadge .material-icons {
+    font-size: 15px;
+}
+
+.progressRingOvertime {
+    stroke: var(--color-secondary);
 }
 
 .mainContent {
@@ -85,11 +110,11 @@
 }
 
 .backgroundRing {
-    stroke: #e2e8f0;
+    stroke: var(--surface-border-muted);
 }
 
 .progressRingFill {
-    stroke: #3b82f6;
+    stroke: var(--color-primary);
 }
 
 .textGroup {
@@ -97,14 +122,14 @@
 }
 
 .currentTimeText {
-    fill: #1e293b;
+    fill: var(--text-heading);
     font-size: 26px;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .estimatedTimeText {
-    fill: #64748b;
+    fill: var(--text-body);
     font-size: 13px;
     font-weight: 500;
 }
@@ -123,8 +148,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: #3b82f6;
-    color: white;
+    background: var(--surface-button-primary);
+    color: var(--text-inverse);
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -135,7 +160,7 @@
 }
 
 .controlIconButton:hover:not(:disabled) {
-    background: #2563eb;
+    background: var(--surface-button-primary-hover);
     transform: scale(1.05);
 }
 
@@ -144,12 +169,13 @@
 }
 
 .resetIconButton {
-    background: #e2e8f0;
-    color: #1e293b;
+    background: var(--surface-button-secondary);
+    color: var(--color-secondary);
 }
 
 .resetIconButton:hover:not(:disabled) {
-    background: #cbd5e1;
+    background: var(--surface-button-secondary-hover);
+    color: var(--color-primary-hover);
 }
 
 .controlIconButton.disabled,
@@ -194,21 +220,21 @@
 }
 
 .completeButton {
-    background: #10b981;
-    color: white;
+    background: var(--color-success);
+    color: var(--text-inverse);
 }
 
 .completeButton:hover {
-    background: #059669;
+    background: var(--color-success-hover);
 }
 
 .continueButton {
-    background: #3b82f6;
-    color: white;
+    background: var(--color-primary);
+    color: var(--text-inverse);
 }
 
 .continueButton:hover {
-    background: #2563eb;
+    background: var(--color-primary-hover);
 }
 
 .confirmationContainer {
@@ -223,7 +249,7 @@
 .confirmationText {
     font-size: 14px;
     font-weight: 500;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-heading);
     text-align: center;
     margin: 0;
 }
@@ -235,21 +261,21 @@
 }
 
 .confirmYesButton {
-    background-color: #10b981;
-    color: white;
+    background-color: var(--color-success);
+    color: var(--text-inverse);
 }
 
 .confirmYesButton:hover {
-    background-color: #059669;
+    background-color: var(--color-success-hover);
 }
 
 .confirmNoButton {
-    background-color: #ef4444;
-    color: white;
+    background-color: var(--feedback-error-text);
+    color: var(--text-inverse);
 }
 
 .confirmNoButton:hover {
-    background-color: #dc2626;
+    background-color: var(--color-error-hover);
 }
 
 @media (max-width: 480px) {
@@ -260,26 +286,5 @@
 
     .controlsRow {
         width: 160px;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .finishIconButton {
-        background: #374151;
-        color: #9ca3af;
-    }
-
-    .finishIconButton:hover {
-        background: #4b5563;
-        color: #e5e7eb;
-    }
-
-    .resetIconButton {
-        background: #374151;
-        color: #e5e7eb;
-    }
-
-    .resetIconButton:hover:not(:disabled) {
-        background: #4b5563;
     }
 }

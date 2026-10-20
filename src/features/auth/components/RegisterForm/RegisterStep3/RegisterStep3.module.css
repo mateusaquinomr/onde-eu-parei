@@ -7,12 +7,12 @@
 }
 
 .card {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-card);
     border-radius: 24px;
     padding: 2rem;
     width: 100%;
     max-width: 480px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-4);
 }
 
 .header {
@@ -23,19 +23,20 @@
 .title {
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
+    color: var(--color-primary);
 }
 
 .stepHint {
     display: inline-block;
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     margin-bottom: 0.75rem;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .subtitle {
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
 .templatesGrid {
@@ -46,11 +47,12 @@
 }
 
 .templateCard {
-    background: #f9fafb;
-    border: 2px solid #e5e7eb;
+    background: var(--surface-panel);
+    border: 2px solid var(--surface-border-muted);
     border-radius: 16px;
     padding: 1.25rem;
     text-align: center;
+    color: var(--text-body-secondary);
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
@@ -60,14 +62,14 @@
 }
 
 .templateCard:hover {
-    border-color: #3b82f6;
-    background: #eff6ff;
+    border-color: var(--color-primary);
+    background: var(--color-primary-subtle);
 }
 
 .templateCard.selected {
-    border-color: #3b82f6;
-    background: #eff6ff;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    border-color: var(--color-primary);
+    background: var(--color-primary-subtle);
+    box-shadow: 0 4px 12px var(--color-primary-subtle);
 }
 
 .templateIcon {
@@ -78,12 +80,12 @@
 .templateTitle {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
     margin: 0;
 }
 
 .templateDescription {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-size: 0.7rem;
     line-height: 1.4;
     margin: 0;
@@ -115,39 +117,5 @@
 
     .templatesGrid {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .stepHint {
-        background: #374151;
-        color: #9ca3af;
-    }
-
-    .templateCard {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .templateCard:hover {
-        border-color: #3b82f6;
-        background: #1e3a5f;
-    }
-
-    .templateCard.selected {
-        border-color: #3b82f6;
-        background: #1e3a5f;
-    }
-
-    .templateTitle {
-        color: #f3f4f6;
-    }
-
-    .templateDescription {
-        color: #9ca3af;
     }
 }

@@ -4,7 +4,7 @@
     overflow-x: auto;
     padding: 10px 4px 24px 4px;
     scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
+    scrollbar-color: var(--surface-border) var(--surface-border-muted);
 }
 
 .grid::-webkit-scrollbar {
@@ -12,17 +12,17 @@
 }
 
 .grid::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--surface-border-muted);
     border-radius: 4px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--surface-border);
     border-radius: 4px;
 }
 
 .grid::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--surface-border-strong);
 }
 
 .grid>* {
@@ -46,7 +46,8 @@
     width: 100%;
     padding: 48px;
     text-align: center;
-    background: #f9fafb;
+    background: var(--surface-panel);
     border-radius: 8px;
-    border: 2px dashed #e5e7eb;
+    border: 2px dashed var(--surface-border-muted);
+    color: var(--text-body-secondary);
 }

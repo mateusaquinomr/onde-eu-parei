@@ -1,8 +1,8 @@
 .header {
-    background: var(--color-bg-secondary, #f9fafb);
+    background: var(--surface-panel);
     border-radius: 12px;
     padding: 1.5rem;
-    border: 1px solid var(--color-border, #e5e7eb);
+    border: 1px solid var(--surface-border-muted);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -17,7 +17,7 @@
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0 0 0.75rem 0;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-heading);
 }
 
 .metadata {
@@ -31,7 +31,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
 .metadataItem .material-icons {
@@ -39,7 +39,7 @@
 }
 
 .metadataItem.days {
-    color: var(--color-primary, #3b82f6);
+    color: var(--color-primary);
     font-weight: 500;
 }
 
@@ -59,11 +59,12 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.2s;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
 .menuButton:hover {
-    background-color: var(--color-bg-tertiary, #e5e7eb);
+    background-color: var(--surface-button-secondary);
+    color: var(--color-primary)
 }
 
 .menuButton .material-icons {
@@ -74,10 +75,10 @@
     position: absolute;
     top: 45px;
     right: 0;
-    background: var(--color-bg-primary, #ffffff);
-    border: 1px solid var(--color-border, #e5e7eb);
+    background: var(--surface-dropdown);
+    border: 1px solid var(--surface-border-muted);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--surface-shadow-2);
     min-width: 180px;
     z-index: 100;
     overflow: hidden;
@@ -93,13 +94,13 @@
     border: none;
     cursor: pointer;
     font-size: 0.875rem;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
     transition: background-color 0.2s;
     text-align: left;
 }
 
 .menuItem:hover {
-    background-color: var(--color-bg-secondary, #f3f4f6);
+    background-color: var(--surface-dropdown-hover);
 }
 
 .menuItem .material-icons {
@@ -107,45 +108,9 @@
 }
 
 .deleteItem {
-    color: #ef4444;
+    color: var(--feedback-error-text);
 }
 
 .deleteItem:hover {
-    background-color: #fee2e2;
-}
-
-@media (prefers-color-scheme: dark) {
-    .header {
-        background: var(--color-bg-secondary, #1f2937);
-        border-color: var(--color-border-dark, #4b5563);
-    }
-
-    .name {
-        color: #f3f4f6;
-    }
-
-    .menuButton:hover {
-        background-color: var(--color-bg-tertiary, #374151);
-    }
-
-    .menuDropdown {
-        background: var(--color-bg-secondary, #1f2937);
-        border-color: var(--color-border-dark, #4b5563);
-    }
-
-    .menuItem {
-        color: #f3f4f6;
-    }
-
-    .menuItem:hover {
-        background-color: var(--color-bg-tertiary, #374151);
-    }
-
-    .deleteItem {
-        color: #f87171;
-    }
-
-    .deleteItem:hover {
-        background-color: #7f1d1d;
-    }
+    background-color: var(--feedback-error-bg);
 }

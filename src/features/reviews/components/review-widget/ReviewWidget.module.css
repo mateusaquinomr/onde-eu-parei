@@ -11,16 +11,16 @@
 }
 
 .title {
-    font-size: 0.875rem;
+    font-size: var(--font-size-lg);
     font-weight: 600;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-heading);
     letter-spacing: 0.5px;
     margin: 0;
 }
 
 .countBadge {
-    background: #f59e0b;
-    color: white;
+    background: var(--color-primary);
+    color: var(--text-inverse);
     font-size: 11px;
     font-weight: 700;
     min-width: 18px;
@@ -32,18 +32,50 @@
     justify-content: center;
 }
 
+.tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.tabButton {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 5px 8px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--text-body-secondary);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.tabButton:hover:not(.tabActive) {
+    color: var(--color-primary);
+    background: var(--surface-button-secondary-active);
+}
+
+.tabActive {
+    background: var(--surface-button-secondary);
+    color: var(--color-primary);
+}
+
+.tabActive:hover {
+    color: var(--color-primary);
+}
+
 .emptyState {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
     padding: 20px 0;
-    color: #9ca3af;
+    color: var(--text-body-secondary);
 }
 
 .emptyState .material-icons {
     font-size: 28px;
-    color: #22c55e;
+    color: var(--color-success);
 }
 
 .emptyState p {
@@ -68,13 +100,13 @@
     gap: 8px;
     padding: 8px;
     border-radius: 8px;
-    background: #f9fafb;
-    border: 1px solid #f3f4f6;
+    background: var(--surface-card);
+    border: 1px solid var(--surface-border-muted);
 }
 
 .overdueItem {
-    background: #fffbeb;
-    border-color: #fde68a;
+    background: var(--surface-card);
+    border-color: var(--color-primary);
 }
 
 .itemInfo {
@@ -89,23 +121,23 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.4px;
-    color: #9ca3af;
+    color: var(--text-body-secondary);
 }
 
 .contentTitle {
     font-size: 13px;
-    color: #1f2937;
+    color: var(--text-body-secondary);
     word-break: break-word;
 }
 
 .stageLabel {
     font-size: 11px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     margin-top: 2px;
 }
 
 .overdueTag {
-    color: #d97706;
+    color: var(--color-primary);
     font-weight: 600;
 }
 
@@ -116,21 +148,6 @@
     flex-shrink: 0;
 }
 
-.durationInput {
-    width: 44px;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    padding: 4px 6px;
-    font-size: 12px;
-    text-align: center;
-    background: white;
-}
-
-.durationInput:focus {
-    outline: none;
-    border-color: #3b82f6;
-}
-
 .completeButton {
     display: flex;
     align-items: center;
@@ -138,19 +155,28 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: none;
-    background: #10b981;
-    color: white;
+    border: 2px solid var(--text-body-secondary);
+    background: transparent;
+    color: var(--color-success);
     cursor: pointer;
     flex-shrink: 0;
+    transition: background-color 0.15s, border-color 0.15s;
 }
 
-.completeButton .material-icons {
+.completeButton :global(.material-icons) {
     font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.15s;
 }
 
 .completeButton:hover {
-    background: #059669;
+    border-color: var(--color-success);
+    background: var(--color-success);
+    color: var(--text-inverse);
+}
+
+.completeButton:hover :global(.material-icons) {
+    opacity: 1;
 }
 
 .list::-webkit-scrollbar {
@@ -158,32 +184,6 @@
 }
 
 .list::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: var(--surface-border);
     border-radius: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .title {
-        color: #e5e7eb;
-    }
-
-    .item {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .overdueItem {
-        background: #451a03;
-        border-color: #92400e;
-    }
-
-    .contentTitle {
-        color: #e5e7eb;
-    }
-
-    .durationInput {
-        background: #111827;
-        border-color: #374151;
-        color: #e5e7eb;
-    }
 }

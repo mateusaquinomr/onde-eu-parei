@@ -10,9 +10,9 @@
 
 .ruleItem {
     padding: 12px;
-    background: #f9fafb;
+    background: var(--surface-panel);
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
 }
 
 .ruleContent {
@@ -32,21 +32,21 @@
 
 .topicName {
     font-weight: 500;
-    color: #1f2937;
-    background: #e5e7eb;
+    color: var(--color-primary);
+    background: var(--surface-border-muted);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 12px;
 }
 
 .operator {
-    color: #3b82f6;
+    color: var(--color-secondary);
     font-weight: 500;
     font-size: 12px;
 }
 
 .relation {
-    color: #f59e0b;
+    color: var(--color-secondary);
     font-weight: 500;
     font-size: 12px;
 }
@@ -58,10 +58,10 @@
 .empty {
     padding: 20px;
     text-align: center;
-    background: #f9fafb;
+    background: var(--surface-muted);
     border-radius: 8px;
-    border: 1px dashed #e5e7eb;
-    color: #6b7280;
+    border: 1px dashed var(--surface-border-muted);
+    color: var(--text-body-secondary);
 }
 
 .container::-webkit-scrollbar {
@@ -69,37 +69,11 @@
 }
 
 .container::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--surface-border-muted);
     border-radius: 2px;
 }
 
 .container::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: var(--surface-border);
     border-radius: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .ruleItem {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .topicName {
-        background: #374151;
-        color: #e5e7eb;
-    }
-
-    .empty {
-        background: #1f2937;
-        border-color: #374151;
-        color: #9ca3af;
-    }
-
-    .container::-webkit-scrollbar-track {
-        background: #374151;
-    }
-
-    .container::-webkit-scrollbar-thumb {
-        background: #4b5563;
-    }
 }

@@ -5,15 +5,16 @@ import styles from './EditalHeader.module.css';
 interface EditalHeaderProps {
     edital: Edital;
     onEdit?: () => void;
+    onArchive?: () => void;
     onDelete?: () => void;
 }
 
-export function EditalHeader({ edital, onEdit, onDelete }: EditalHeaderProps) {
+export function EditalHeader({ edital, onEdit, onArchive, onDelete }: EditalHeaderProps) {
     const [showMenu, setShowMenu] = useState(false);
 
     const mesesRestantes = (data: Date | string): string => {
         const hoje = new Date();
-        // Converter string para Date se necessário
+
         const dataProva = typeof data === 'string' ? new Date(data) : data;
 
         if (!(dataProva instanceof Date) || isNaN(dataProva.getTime())) {
@@ -87,6 +88,18 @@ export function EditalHeader({ edital, onEdit, onDelete }: EditalHeaderProps) {
                             >
                                 <span className="material-icons">edit</span>
                                 Editar edital
+                            </button>
+                        )}
+                        {onArchive && (
+                            <button
+                                className={styles.menuItem}
+                                onClick={() => {
+                                    setShowMenu(false);
+                                    onArchive();
+                                }}
+                            >
+                                <span className="material-icons">archive</span>
+                                Arquivar
                             </button>
                         )}
                         {onDelete && (

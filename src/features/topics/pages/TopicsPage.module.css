@@ -22,7 +22,7 @@
     justify-content: center;
     align-items: center;
     height: 200px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .actions {
@@ -40,13 +40,13 @@
 
 .emptyText {
     font-size: 1.125rem;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
 .inlineButton {
     background: none;
     border: none;
-    color: var(--color-primary, #3b82f6);
+    color: var(--color-primary);
     font-size: inherit;
     font-weight: 600;
     cursor: pointer;
@@ -57,7 +57,7 @@
 }
 
 .inlineButton:hover {
-    color: var(--color-primary-dark, #2563eb);
+    color: var(--color-primary-hover);
 }
 
 .loading {
@@ -65,5 +65,5 @@
     align-items: center;
     justify-content: center;
     min-height: 400px;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }

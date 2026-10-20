@@ -23,13 +23,24 @@ import { SortableContentItem } from '../SortableContentItem/SortableContentItem'
 import type { Content, ImportanceLevel, ChecklistItem, QuestionList } from '../../types/topic.types';
 import styles from './ContentList.module.css';
 
+interface ActiveBlockInfo {
+    id: string;
+    minutes: number;
+    originalMinutes?: number;
+}
+
 interface ContentListProps {
     topicId: string;
+    topicName: string;
     contents: Content[];
     isEditing: boolean;
     onToggleComplete: (contentId: string) => void;
     onUpdateContent: (id: string, title: string, importance: ImportanceLevel) => void;
     onDeleteContent: (contentId: string) => void;
+    onCopyToTopic?: (content: Content) => void;
+    activeBlock?: ActiveBlockInfo | null;
+    onBlockMinuteTick?: (minutes: number) => void;
+    onBlockCompleteBlock?: (blockId: string) => void;
     onReorder: (contents: Content[]) => void;
     onUpdateChecklist: (contentId: string, items: ChecklistItem[]) => void;
     onUpdateNotes: (contentId: string, notes: string) => void;
@@ -39,11 +50,16 @@ interface ContentListProps {
 
 export function ContentList({
     topicId,
+    topicName,
     contents,
     isEditing,
     onToggleComplete,
     onUpdateContent,
     onDeleteContent,
+    onCopyToTopic,
+    activeBlock,
+    onBlockMinuteTick,
+    onBlockCompleteBlock,
     onReorder,
     onUpdateChecklist,
     onUpdateNotes,
@@ -80,12 +96,10 @@ export function ContentList({
     };
 
     const handleToggleComplete = (contentId: string) => {
-        console.log('ContentList - Toggle', contentId);
         onToggleComplete(contentId);
     };
 
     const handleDeleteContent = (contentId: string) => {
-        console.log('ContentList - Delete', contentId);
         onDeleteContent(contentId);
     };
 
@@ -129,6 +143,11 @@ export function ContentList({
                                 }}
                                 onCancel={() => setEditingId(null)}
                                 onDelete={() => handleDeleteContent(content.id)}
+                                onCopyToTopic={onCopyToTopic}
+                                topicName={topicName}
+                                activeBlock={activeBlock}
+                                onBlockMinuteTick={onBlockMinuteTick}
+                                onBlockCompleteBlock={onBlockCompleteBlock}
                                 onToggleComplete={() => handleToggleComplete(content.id)}
                                 onUpdateChecklist={onUpdateChecklist}
                                 onUpdateNotes={onUpdateNotes}

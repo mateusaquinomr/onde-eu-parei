@@ -2,9 +2,9 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid var(--color-border-muted, #e5e7eb);
-    backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid var(--surface-header-border);
+    backdrop-filter: var(--surface-header-blur);
+    background: var(--color-primary);
 }
 
 .container {
@@ -29,7 +29,7 @@
 
 .logoText {
     font-weight: 700;
-    color: #1f2937;
+    color: var(--text-heading);
 }
 
 .actions {
@@ -37,15 +37,8 @@
     gap: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-    .header {
-        background: rgba(31, 41, 55, 0.95);
-        border-bottom-color: var(--color-border-muted, #374151);
-    }
-
-    .logoText {
-        color: var(--color-text-primary, #f3f4f6);
-    }
+.actions .loginButton {
+    color: red !important;
 }
 
 @media (max-width: 768px) {

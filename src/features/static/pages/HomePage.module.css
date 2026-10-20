@@ -16,8 +16,8 @@
 
 .badge {
     display: inline-block;
-    background: rgba(59, 130, 246, 0.1);
-    color: #2556a5;
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.875rem;
@@ -28,17 +28,18 @@
     font-size: 3rem;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    color: var(--text-body-secondary);
 }
 
 .highlight {
-    background: #2556a5;
+    background: var(--color-primary);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
 
 .subtitle {
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
     max-width: 600px;
     margin: 0 auto 2rem;
     font-size: 1.125rem;
@@ -49,13 +50,6 @@
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
-}
-
-
-@media (prefers-color-scheme: dark) {
-    .badge {
-        background: rgba(59, 130, 246, 0.2);
-    }
 }
 
 @media (max-width: 768px) {
@@ -83,12 +77,10 @@
     .buttons button {
         width: 200px;
     }
-
 }
 
 @media (max-width: 480px) {
     .title {
         font-size: 1.5rem;
     }
-
 }

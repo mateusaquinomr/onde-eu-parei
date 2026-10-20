@@ -3,14 +3,13 @@ import type { StudyProgress } from '../types/study.types';
 class StudyTimerService {
     private readonly STORAGE_KEY = 'study_progress';
 
-    saveProgress(contentId: string, elapsedSeconds: number): void {
+    saveProgress(key: string, elapsedSeconds: number): void {
         try {
             const progress = this.getAllProgress();
-            progress[contentId] = {
-                contentId,
+            progress[key] = {
+                key,
                 elapsedSeconds,
-                lastUpdated: new Date().toISOString(),
-                completed: false
+                lastUpdated: new Date().toISOString()
             };
 
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(progress));
@@ -19,10 +18,10 @@ class StudyTimerService {
         }
     }
 
-    getProgress(contentId: string): StudyProgress | null {
+    getProgress(key: string): StudyProgress | null {
         try {
             const all = this.getAllProgress();
-            return all[contentId] || null;
+            return all[key] || null;
         } catch {
             return null;
         }
@@ -37,25 +36,13 @@ class StudyTimerService {
         }
     }
 
-    clearProgress(contentId: string): void {
+    clearProgress(key: string): void {
         try {
             const all = this.getAllProgress();
-            delete all[contentId];
+            delete all[key];
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(all));
         } catch (error) {
             console.error('Erro ao limpar progresso:', error);
-        }
-    }
-
-    markAsCompleted(contentId: string): void {
-        try {
-            const progress = this.getAllProgress();
-            if (progress[contentId]) {
-                progress[contentId].completed = true;
-                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(progress));
-            }
-        } catch (error) {
-            console.error('Erro ao marcar como completo:', error);
         }
     }
 }

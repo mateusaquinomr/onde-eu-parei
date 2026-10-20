@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTasks } from '../../hooks/useTasks';
+import { useEditais } from '@/features/editais/hooks/useEditais';
 import type { Task } from '../../types/task.types';
 import styles from './TasksWidget.module.css';
 
@@ -27,15 +28,18 @@ function isOverdue(dueDate?: string, completed?: boolean): boolean {
 
 export function TasksWidget() {
     const { tasks, loading, createTask, toggleTask, deleteTask } = useTasks();
+    const { editais } = useEditais();
     const [showForm, setShowForm] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
+    const [editalId, setEditalId] = useState('');
 
     const resetForm = () => {
         setTitle('');
         setDescription('');
         setDueDate('');
+        setEditalId('');
         setShowForm(false);
     };
 
@@ -46,7 +50,8 @@ export function TasksWidget() {
         await createTask({
             title: title.trim(),
             description: description.trim() || undefined,
-            dueDate: dueDate ? parseDateInputAsUTC(dueDate) : undefined
+            dueDate: dueDate ? parseDateInputAsUTC(dueDate) : undefined,
+            editalId: editalId || undefined
         });
         resetForm();
     };
@@ -58,6 +63,11 @@ export function TasksWidget() {
         if (!b.dueDate) return -1;
         return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
     });
+
+    const getEditalNome = (id?: string) => {
+        if (!id) return null;
+        return editais.find(e => e.id === id)?.nome || null;
+    };
 
     if (loading) {
         return <div className={styles.loading}>Carregando tarefas...</div>;
@@ -93,6 +103,22 @@ export function TasksWidget() {
                         onChange={(e) => setDescription(e.target.value)}
                         rows={2}
                     />
+
+                    {editais.length > 0 && (
+                        <select
+                            className={styles.editalSelect}
+                            value={editalId}
+                            onChange={(e) => setEditalId(e.target.value)}
+                        >
+                            <option value="">Sem edital vinculado</option>
+                            {editais.map(edital => (
+                                <option key={edital.id} value={edital.id}>
+                                    {edital.nome}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+
                     <div className={styles.formFooter}>
                         <input
                             className={styles.dateInput}
@@ -105,7 +131,7 @@ export function TasksWidget() {
                             className={styles.saveButton}
                             disabled={!title.trim()}
                         >
-                            Adicionar
+                            Criar
                         </button>
                     </div>
                 </form>
@@ -120,6 +146,7 @@ export function TasksWidget() {
                 <ul className={styles.list}>
                     {sortedTasks.map((task: Task) => {
                         const overdue = isOverdue(task.dueDate, task.completed);
+                        const editalNome = getEditalNome(task.editalId);
                         return (
                             <li
                                 key={task.id}
@@ -137,6 +164,12 @@ export function TasksWidget() {
                                     <span className={styles.itemTitle}>{task.title}</span>
                                     {task.description && (
                                         <span className={styles.itemDescription}>{task.description}</span>
+                                    )}
+                                    {editalNome && (
+                                        <span className={styles.editalBadge}>
+                                            <span className="material-icons">folder</span>
+                                            {editalNome}
+                                        </span>
                                     )}
                                 </div>
 

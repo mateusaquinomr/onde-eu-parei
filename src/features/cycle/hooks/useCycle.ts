@@ -108,14 +108,18 @@ export function useCycle() {
     const completeBlock = useCallback(async (blockId: string) => {
         if (!currentCycle) return null;
 
-        const updatedCycle = await cycleService.completeBlock(currentCycle.id, blockId, topics);
+        const updatedCycle = await cycleService.completeBlock(currentCycle.id, blockId);
         if (updatedCycle) {
             setCurrentCycle(updatedCycle);
             const summary = await cycleService.getSummary();
             setCycleSummary(summary);
         }
         return updatedCycle;
-    }, [currentCycle, topics]);
+    }, [currentCycle]);
+
+    const isCycleComplete = currentCycle
+        ? currentCycle.blocks.length > 0 && currentCycle.blocks.every(b => b.completed)
+        : false;
 
     const decrementBlockMinutes = useCallback(async (blockId: string, minutes: number) => {
         if (!currentCycle) return null;
@@ -174,6 +178,7 @@ export function useCycle() {
         completeBlock,
         decrementBlockMinutes,
         updateBlocks,
+        isCycleComplete,
         nextStep,
         prevStep,
         openConfigModal,

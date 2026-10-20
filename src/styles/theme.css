@@ -1,17 +1,22 @@
 :root {
-    /* LIGHT THEME  */
+    /* ================================
+       LIGHT THEME
+       ================================ */
+
+    --page-background:
+        linear-gradient(270deg, #94C492 0%, #9E9FCA 0%, #9292C9 50%, #D7D6EB 100%);
+
 
     /* Background */
-    --color-bg-primary: var(--color-gray-0);
-    --color-bg-secondary: var(--color-gray-50);
-    --color-bg-tertiary: var(--color-gray-100);
-    --color-bg-accent: var(--color-gray-200);
-    --color-bg-muted: var(--color-gray-25);
+    --color-bg-primary: var(--color-gray-50);
+    --color-bg-secondary: var(--color-gray-100);
+    --color-bg-tertiary: var(--color-gray-200);
+    --color-bg-accent: var(--color-gray-300);
+    --color-bg-muted: var(--color-gray-50);
     --color-bg-inverse: var(--color-gray-900);
 
-
     /* Text */
-    --color-text-primary: var(--color-gray-900);
+    --color-text-primary: var(--color-white);
     --color-text-secondary: var(--color-gray-600);
     --color-text-tertiary: var(--color-gray-500);
     --color-text-quaternary: var(--color-gray-400);
@@ -23,16 +28,16 @@
     /* Border */
     --color-border: var(--color-gray-400);
     --color-border-muted: var(--color-gray-200);
-    --color-border-strong: var(--color-gray-400);
+    --color-border-strong: var(--color-gray-500);
     --color-border-inverse: var(--color-gray-700);
 
     /* Identidade Visual */
-    --color-primary: var(--color-blue-600);
-    --color-primary-hover: var(--color-blue-700);
-    --color-primary-active: var(--color-blue-800);
-    --color-primary-subtle: var(--color-blue-50);
+    --color-primary: var(--color-purple-700);
+    --color-primary-hover: var(--color-purple-800);
+    --color-primary-active: var(--color-purle-800);
+    --color-primary-subtle: var(--color-purple-200);
 
-    --color-secondary: var(--color-yellow-500);
+    --color-secondary: var(--color-gray-600);
     --color-secondary-hover: var(--color-yellow-600);
     --color-secondary-active: var(--color-yellow-700);
     --color-secondary-subtle: var(--color-yellow-50);
@@ -63,22 +68,68 @@
     --color-overlay: rgba(0, 0, 0, 0.3);
     --color-overlay-light: rgba(0, 0, 0, 0.1);
     --color-overlay-dark: rgba(0, 0, 0, 0.5);
+    --layout-background-overlay: rgba(148, 146, 146, 0.5);
+
+    /* ================================
+       SURFACE EFFECTS — LIGHT
+       ================================ */
+
+    --surface-card-background: rgba(223, 223, 223, 0.3);
+    --surface-card-border: rgba(255, 255, 255, 0.70);
+    --surface-card-background-active: rgba(255, 255, 255, 0.70);
+    --surface-card-shadow: var(--shadow-md);
+    --surface-card-blur: var(--blur-2xl);
+
+    --surface-button-background: rgba(255, 255, 255, 0.521);
+    --surface-button-background-hover: rgba(255, 255, 255, 0.39);
+    --surface-button-background-active: rgba(255, 255, 255, 0.24);
+
+    --surface-panel-background: rgba(255, 255, 255, 0.30);
+    --surface-panel-border: rgba(255, 255, 255, 0.55);
+    --surface-panel-shadow: var(--shadow-sm);
+    --surface-panel-blur: var(--blur-xl);
+
+    --surface-header-background: rgba(255, 255, 255, 0.55);
+    --surface-header-border: rgba(255, 255, 255, 0.70);
+    --surface-header-shadow: var(--shadow-sm);
+    --surface-header-blur: var(--blur-2xl);
+
+    --surface-modal-background: rgba(209, 208, 208, 0.938);
+    --surface-modal-border: rgba(255, 255, 255, 0.75);
+    --surface-modal-shadow: var(--shadow-xl);
+    --surface-modal-blur: var(--blur-2xl);
+
+    --surface-dropdown-background: rgba(233, 232, 232, 0.808);
+    --surface-dropdown-background-hover: rgba(250, 248, 248, 0.7);
 }
 
+
 [data-theme="dark"] {
-    /* DARK THEME */
+    /* ================================
+       DARK THEME
+       ================================ */
+
+
+    --page-background:
+        linear-gradient(280deg, #2c2c35 35%, #17181a 59%, #0F0F0F 100%);
 
     /* Background */
-    --color-bg: var(--color-gray-900);
-    --color-bg-muted: var(--color-gray-800);
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: var(--color-gray-900);
+    --color-bg-tertiary: var(--color-gray-800);
+    --color-bg-accent: var(--color-gray-700);
+    --color-bg-muted: var(--color-gray-900);
     --color-bg-inverse: var(--color-white);
 
     /* Text */
     --color-text-primary: var(--color-white);
     --color-text-secondary: var(--color-gray-300);
     --color-text-tertiary: var(--color-gray-400);
+    --color-text-quaternary: var(--color-gray-500);
+    --color-text-placeholder: var(--color-gray-500);
     --color-text-inverse: var(--color-black);
     --color-text-disabled: var(--color-gray-600);
+    --color-text-on-emphasis: var(--color-white);
 
     /* Border */
     --color-border: var(--color-gray-600);
@@ -86,13 +137,13 @@
     --color-border-strong: var(--color-gray-500);
     --color-border-inverse: var(--color-gray-300);
 
-    /* Brand */
-    --color-primary: var(--color-blue-400);
-    --color-primary-hover: var(--color-blue-300);
-    --color-primary-active: var(--color-blue-200);
+    /* Identidade Visual */
+    --color-primary: var(--color-purple-300);
+    --color-primary-hover: var(--color-purple-400);
+    --color-primary-active: var(--color-purle-200);
     --color-primary-subtle: rgba(59, 130, 246, 0.2);
 
-    --color-secondary: var(--color-yellow-400);
+    --color-secondary: var(--color-gray-300);
     --color-secondary-hover: var(--color-yellow-300);
     --color-secondary-active: var(--color-yellow-200);
     --color-secondary-subtle: rgba(234, 179, 8, 0.2);
@@ -123,4 +174,38 @@
     --color-overlay: rgba(0, 0, 0, 0.5);
     --color-overlay-light: rgba(0, 0, 0, 0.3);
     --color-overlay-dark: rgba(0, 0, 0, 0.7);
+    --layout-background-overlay: rgba(0, 0, 0, 0.7);
+
+    /* ================================
+       SURFACE EFFECTS — DARK
+       ================================ */
+
+    --surface-card-background: rgba(255, 255, 255, 0.08);
+    --surface-card-border: rgba(255, 255, 255, 0.16);
+    --surface-card-background-active: rgba(255, 255, 255, 0.16);
+    --surface-card-shadow: var(--shadow-dark-md);
+    --surface-card-blur: var(--blur-2xl);
+
+    --surface-panel-background: rgba(255, 255, 255, 0.05);
+    --surface-panel-border: rgba(255, 255, 255, 0.12);
+    --surface-panel-shadow: var(--shadow-dark-sm);
+    --surface-panel-blur: var(--blur-xl);
+
+    --surface-button-background: rgba(255, 255, 255, 0.151);
+    --surface-button-background-hover: rgba(255, 255, 255, 0.178);
+    --surface-button-background-active: rgba(255, 255, 255, 0.13);
+
+    --surface-header-background: rgba(15, 23, 42, 0.55);
+    --surface-header-border: rgba(255, 255, 255, 0.14);
+    --surface-header-shadow: var(--shadow-dark-sm);
+    --surface-header-blur: var(--blur-2xl);
+
+
+    --surface-modal-background: rgba(63, 62, 62, 0.7);
+    --surface-modal-border: rgba(255, 255, 255, 0.16);
+    --surface-modal-shadow: var(--shadow-dark-md);
+    --surface-modal-blur: var(--blur-2xl);
+
+    --surface-dropdown-background: rgba(95, 94, 94, 0.700);
+    --surface-dropdown-background-hover: rgba(70, 70, 70, 0.7);
 }

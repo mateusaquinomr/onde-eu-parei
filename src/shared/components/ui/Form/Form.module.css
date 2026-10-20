@@ -2,9 +2,26 @@ input {
     height: var(--spacing-25-md);
     border-radius: 45px;
     padding: var(--spacing-10-df);
-    background-color: var(--form-bg);
+    background-color: var(--input-bg);
     border: 1px solid var(--input-border);
     padding-left: 1rem !important;
+    color: var(--input-text);
+}
+
+input::placeholder {
+    color: var(--input-placeholder);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 1px var(--color-primary-subtle);
+}
+
+input:disabled {
+    background-color: var(--input-bg-disabled);
+    color: var(--input-disabled);
+    cursor: not-allowed;
 }
 
 .textarea {
@@ -12,14 +29,43 @@ input {
     border-radius: var(--radius-md);
     padding: var(--spacing-10-df);
     border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    font-family: inherit;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px var(--color-primary-subtle);
+}
+
+.textarea:disabled {
+    background-color: var(--input-bg-disabled);
+    color: var(--input-disabled);
+    cursor: not-allowed;
 }
 
 .select {
     height: var(--spacing-25-md);
     border-radius: var(--radius-md);
     padding-left: var(--spacing-10-df);
-    background-color: var(--form-bg);
+    background-color: var(--input-bg);
     border: 1px solid var(--input-border);
+    color: var(--input-text);
+    appearance: auto;
+}
+
+.select:focus {
+    outline: none;
+    /* border-color: var(--input-border-focus); */
+    box-shadow: 0 0 0 3px var(--color-primary-subtle);
+}
+
+.select:disabled {
+    background-color: var(--input-bg-disabled);
+    color: var(--input-disabled);
+    cursor: not-allowed;
 }
 
 .multiSelect {
@@ -32,12 +78,25 @@ input {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--input-label);
+    cursor: pointer;
+}
+
+.multiSelect input[type="checkbox"] {
+    accent-color: var(--color-primary);
 }
 
 .checkbox {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--input-label);
+    cursor: pointer;
+    border-radius: 35px;
+}
+
+.checkbox input[type="checkbox"] {
+    /* accent-color: var(--color-primary); */
 }
 
 .radioGroup {
@@ -50,4 +109,10 @@ input {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--input-label);
+    cursor: pointer;
+}
+
+.radioGroup input[type="radio"] {
+    accent-color: var(--color-primary);
 }

@@ -7,9 +7,7 @@ export function SettingsPage() {
             <div className={styles.header}>
                 <Text as="h1" variant="pageTitle">Configurações</Text>
             </div>
-            <div className={styles.card}>
-                <Text variant="body">Em breve...</Text>
-            </div>
+            <p>Página em desenvolvimento!</p>
         </div>
     );
 }

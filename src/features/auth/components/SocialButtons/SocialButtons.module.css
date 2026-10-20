@@ -12,11 +12,11 @@
 .dividerLine {
     flex: 1;
     height: 1px;
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
 }
 
 .dividerText {
-    color: #9ca3af;
+    color: var(--text-muted);
 }
 
 .buttons {
@@ -30,12 +30,13 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
     border-radius: 40px;
     background: transparent;
     cursor: pointer;
     transition: all 0.2s;
     opacity: 0.6;
+    color: var(--text-body);
 }
 
 .socialButton:disabled {
@@ -43,26 +44,12 @@
 }
 
 .socialButton:hover:not(:disabled) {
-    background: #f9fafb;
+    background: var(--surface-hover);
     opacity: 1;
 }
 
 .socialIcon {
     font-size: 1.25rem;
-}
-
-@media (prefers-color-scheme: dark) {
-    .dividerLine {
-        background: #374151;
-    }
-
-    .socialButton {
-        border-color: #374151;
-    }
-
-    .socialButton:hover:not(:disabled) {
-        background: #1f2937;
-    }
 }
 
 @media (max-width: 480px) {
