@@ -14,7 +14,7 @@ export function PerformancePage() {
     const { data, loading, error } = usePerformanceData();
 
     if (loading) {
-        return <div className={styles.loading}>Carregando dados de performance...</div>;
+        return <div className={styles.loading}>Carregando...</div>;
     }
 
     if (error || !data) {
@@ -32,7 +32,8 @@ export function PerformancePage() {
                     Desempenho
                 </Text>
             </div>
-
+            <p>Página em desenvolvimento!</p>
+            {/* 
             <MetricsGrid metrics={data.metrics} />
 
             <div className={styles.twoColumnLayout}>
@@ -56,7 +57,7 @@ export function PerformancePage() {
 
                     <InsightsPanel insights={data.insights} />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

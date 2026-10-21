@@ -6,6 +6,8 @@ export interface Edital {
     local: string;
     topicosCount?: number;
     progresso?: number;
+    archived?: boolean;
+    archivedAt?: Date | string;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -22,4 +24,6 @@ export interface UpdateEditalDTO {
     banca?: string;
     dataProva?: Date | string;
     local?: string;
+    archived?: boolean;
+    archivedAt?: Date | string | null;
 }

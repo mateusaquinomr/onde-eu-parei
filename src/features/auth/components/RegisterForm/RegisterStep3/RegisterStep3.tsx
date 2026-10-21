@@ -83,7 +83,7 @@ export function RegisterStep3() {
                         Escolha um modelo
                     </Text>
                     <Text variant="body" className={styles.subtitle}>
-                        Selecione um modelo para começar ou pule para começar do zero
+                        Selecione um modelo ou pule para começar do zero
                     </Text>
                 </div>
 

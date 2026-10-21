@@ -1,86 +1,80 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useStudyTimer } from '../../hooks/useStudyTimer';
 import type { TimerProps } from '../../types/study.types';
 import styles from './Timer.module.css';
 
 export function Timer({
+    sessionKey,
     topicId,
     contentId,
     topicName,
     contentTitle,
     estimatedTime,
-    initialElapsedTime = 0,
     onTimeUpdate,
-    onComplete,
-    onCompleteWithConfirmation,
-    onFinishContent,
     onMinuteTick,
-    onContinue,
+    onFinishContent,
+    onCompleteBlock,
     className = ''
 }: TimerProps) {
     const {
         isRunning,
         elapsedSeconds,
-        isCompleted: timerCompleted,
+        hasReachedTarget,
+        hasTarget,
         progress,
+        estimatedSeconds,
         formattedTime,
         formattedEstimated,
         start,
         pause,
-        reset,
-        addTime
+        finishBlock,
+        reset
     } = useStudyTimer({
-        contentId,
+        sessionKey,
         estimatedTime,
-        initialElapsedTime,
         onTimeUpdate,
-        onComplete: (contentId, totalSeconds) => {
-            onComplete?.(contentId, totalSeconds);
-        },
         onMinuteTick
     });
 
-    const [showConfirmation, setShowConfirmation] = useState(false);
-
+    const [showBlockChoice, setShowBlockChoice] = useState(false);
     const [showFinishConfirmation, setShowFinishConfirmation] = useState(false);
-    const [pendingFinishElapsed, setPendingFinishElapsed] = useState(0);
-
-    useEffect(() => {
-        if (timerCompleted) {
-            setShowConfirmation(true);
-        }
-    }, [timerCompleted]);
 
     const radius = 70;
     const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = circumference - (progress / 100) * circumference;
+    const strokeDashoffset = hasTarget
+        ? circumference - (progress / 100) * circumference
+        : circumference;
 
-    const handleContinue = () => {
-        addTime(15 * 60);
-        onContinue?.(contentId);
-        setShowConfirmation(false);
+    const handleTogglePlayPause = () => {
+        if (isRunning) {
+            const finalElapsed = pause();
+            if (hasTarget && finalElapsed >= estimatedSeconds) {
+                setShowBlockChoice(true);
+            }
+        } else {
+            start();
+        }
     };
 
-    const handleCompleteConfirm = (contentCompleted: boolean) => {
-        setShowConfirmation(false);
-        onCompleteWithConfirmation?.(contentId, elapsedSeconds, contentCompleted);
+    const handleCompleteBlock = () => {
+        const finalElapsed = finishBlock();
+        setShowBlockChoice(false);
+        onCompleteBlock?.(sessionKey, finalElapsed);
     };
 
-
-    const handleOpenFinishConfirmation = () => {
-        const finalElapsed = pause();
-        setPendingFinishElapsed(finalElapsed);
-        setShowFinishConfirmation(true);
+    const handleContinueStudying = () => {
+        setShowBlockChoice(false);
+        start();
     };
 
     const handleFinishConfirm = (confirmed: boolean) => {
         setShowFinishConfirmation(false);
         if (confirmed) {
-            onFinishContent?.(contentId, pendingFinishElapsed);
-        } else {
-            start();
+            onFinishContent?.(contentId, elapsedSeconds);
         }
     };
+
+    const showingModal = showBlockChoice || showFinishConfirmation;
 
     return (
         <div className={`${styles.container} ${className}`}>
@@ -90,10 +84,10 @@ export function Timer({
                     <p className={styles.contentTitle}>{contentTitle}</p>
                 </div>
 
-                {!timerCompleted && !showFinishConfirmation && (
+                {!showingModal && onFinishContent && (
                     <button
                         className={styles.finishIconButton}
-                        onClick={handleOpenFinishConfirmation}
+                        onClick={() => setShowFinishConfirmation(true)}
                         title="Concluir este conteúdo agora"
                     >
                         <span className="material-icons">task_alt</span>
@@ -101,54 +95,34 @@ export function Timer({
                 )}
             </div>
 
-            {timerCompleted ? (
-                showConfirmation ? (
-                    <div className={styles.confirmationContainer}>
-                        <p className={styles.confirmationText}>
-                            Você concluiu o estudo de "{contentTitle}"?
-                        </p>
-                        <div className={styles.confirmationButtons}>
-                            <button
-                                className={`${styles.actionButton} ${styles.confirmYesButton}`}
-                                onClick={() => handleCompleteConfirm(true)}
-                            >
-                                <span className="material-icons">check</span>
-                                Sim
-                            </button>
-                            <button
-                                className={`${styles.actionButton} ${styles.confirmNoButton}`}
-                                onClick={() => handleCompleteConfirm(false)}
-                            >
-                                <span className="material-icons">close</span>
-                                Não
-                            </button>
-                        </div>
+            {showBlockChoice ? (
+                <div className={styles.confirmationContainer}>
+                    <p className={styles.confirmationText}>
+                        O tempo planejado deste bloco ({formattedEstimated}) foi concluído.
+                        O que você quer fazer?
+                    </p>
+                    <div className={styles.confirmationButtons}>
+                        <button
+                            className={`${styles.actionButton} ${styles.confirmYesButton}`}
+                            onClick={handleCompleteBlock}
+                        >
+                            <span className="material-icons">check_circle</span>
+                            Concluir bloco
+                        </button>
+                        <button
+                            className={`${styles.actionButton} ${styles.confirmNoButton}`}
+                            onClick={handleContinueStudying}
+                        >
+                            <span className="material-icons">play_circle</span>
+                            Continuar estudando
+                        </button>
                     </div>
-                ) : (
-                    <div className={styles.mainContent}>
-                        <span className={styles.completedBadge}>Tempo concluído!</span>
-                        <div className={styles.actionsWrapper}>
-                            <button
-                                className={`${styles.actionButton} ${styles.completeButton}`}
-                                onClick={() => setShowConfirmation(true)}
-                            >
-                                <span className="material-icons">check_circle</span>
-                                Concluir
-                            </button>
-                            <button
-                                className={`${styles.actionButton} ${styles.continueButton}`}
-                                onClick={handleContinue}
-                            >
-                                <span className="material-icons">play_circle</span>
-                                Continuar
-                            </button>
-                        </div>
-                    </div>
-                )
+                </div>
             ) : showFinishConfirmation ? (
                 <div className={styles.confirmationContainer}>
                     <p className={styles.confirmationText}>
-                        Concluir "{contentTitle}" antecipadamente? O tempo até agora ({formattedTime}) será registrado, e o bloco continua com o próximo conteúdo.
+                        Concluir "{contentTitle}" agora? O bloco continua rodando normalmente
+                        com o próximo conteúdo — o tempo restante não é afetado.
                     </p>
                     <div className={styles.confirmationButtons}>
                         <button
@@ -163,12 +137,19 @@ export function Timer({
                             onClick={() => handleFinishConfirm(false)}
                         >
                             <span className="material-icons">close</span>
-                            Continuar estudando
+                            Cancelar
                         </button>
                     </div>
                 </div>
             ) : (
                 <div className={styles.mainContent}>
+                    {hasReachedTarget && (
+                        <span className={styles.reachedTargetBadge}>
+                            <span className="material-icons">check_circle</span>
+                            Tempo planejado concluído - continuando
+                        </span>
+                    )}
+
                     <div className={styles.timerWrapper}>
                         <svg
                             className={styles.progressRing}
@@ -185,7 +166,7 @@ export function Timer({
                                 strokeWidth="8"
                             />
                             <circle
-                                className={styles.progressRingFill}
+                                className={`${styles.progressRingFill} ${hasReachedTarget ? styles.progressRingOvertime : ''}`}
                                 cx="100"
                                 cy="100"
                                 r={radius}
@@ -225,7 +206,7 @@ export function Timer({
                     <div className={styles.controlsRow}>
                         <button
                             className={styles.controlIconButton}
-                            onClick={isRunning ? pause : start}
+                            onClick={handleTogglePlayPause}
                             title={isRunning ? 'Pausar' : 'Iniciar'}
                         >
                             <span className="material-icons">{isRunning ? 'pause' : 'play_arrow'}</span>

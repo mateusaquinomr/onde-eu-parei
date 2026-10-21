@@ -1,7 +1,7 @@
 .dragHandle {
     cursor: grab;
     padding: 0 8px;
-    color: #9ca3af;
+    color: var(--text-muted);
     user-select: none;
     font-size: 20px;
     line-height: 1;
@@ -13,18 +13,18 @@
 }
 
 .dragHandle:hover {
-    color: #4b5563;
-    background-color: #f3f4f6;
+    color: var(--color-primary);
+    background-color: var(--surface-hover);
 }
 
 .dragHandle:active {
     cursor: grabbing;
-    color: #3b82f6;
-    background-color: #e5e7eb;
+    color: var(--color-primary);
+    background-color: var(--surface-hover);
 }
 
 .dragHandle:focus-visible {
-    outline: 2px solid #3b82f6;
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
@@ -39,21 +39,5 @@
     .dragHandle {
         padding: 8px 12px;
         font-size: 24px;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .dragHandle {
-        color: #6b7280;
-    }
-
-    .dragHandle:hover {
-        color: #e5e7eb;
-        background-color: #374151;
-    }
-
-    .dragHandle:active {
-        color: #60a5fa;
-        background-color: #4b5563;
     }
 }

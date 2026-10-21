@@ -38,7 +38,7 @@ const difficultyOptions = [
 ];
 
 const notebookColors = {
-    azul: '#3B82F6',
+    azul: '#3b83f6f1',
     amarelo: '#F59E0B',
     vermelho: '#EF4444',
     verde: '#10B981',

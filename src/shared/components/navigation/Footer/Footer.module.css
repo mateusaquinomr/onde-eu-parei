@@ -1,6 +1,6 @@
 .footer {
-    background: var(--color-bg-secondary, #f9fafb);
-    border-top: 1px solid var(--color-border-muted, #e5e7eb);
+    background: var(--surface-footer);
+    border-top: 1px solid var(--surface-border-muted);
     padding: 1.5rem 0;
     margin-top: auto;
 }
@@ -17,7 +17,7 @@
 }
 
 .copyright {
-    color: var(--color-text-tertiary, #6b7280);
+    color: var(--text-muted);
 }
 
 .links {
@@ -26,29 +26,29 @@
 }
 
 .link {
-    color: var(--color-text-tertiary, #6b7280);
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 0.875rem;
     transition: color 0.2s;
 }
 
 .link:hover {
-    color: var(--color-primary, #3b82f6);
+    color: var(--text-link);
     text-decoration: underline;
 }
 
 @media (prefers-color-scheme: dark) {
     .footer {
-        background: var(--color-bg-secondary, #1f2937);
-        border-top-color: var(--color-border-muted, #374151);
+        background: var(--surface-footer);
+        border-top-color: var(--surface-border-muted);
     }
 
     .copyright {
-        color: var(--color-text-tertiary, #9ca3af);
+        color: var(--text-muted);
     }
 
     .link {
-        color: var(--color-text-tertiary, #9ca3af);
+        color: var(--text-muted);
     }
 }
 

@@ -1,7 +1,7 @@
 .toggleContainer {
     position: relative;
     display: flex;
-    background: #f3f4f6;
+    background: var(--surface-muted);
     border-radius: 40px;
     padding: 4px;
     margin-bottom: 2rem;
@@ -14,7 +14,7 @@
     background: transparent;
     font-size: 14px;
     font-weight: 500;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     cursor: pointer;
     border-radius: 36px;
     position: relative;
@@ -23,7 +23,12 @@
 }
 
 .toggleButton.active {
-    color: #3b82f6;
+    color: var(--color-primary);
+}
+
+.toggleButton:hover:not(.toggleButton.active) {
+    background: var(--surface-button-secondary);
+    color: var(--color-primary);
 }
 
 .slider {
@@ -32,27 +37,13 @@
     bottom: 4px;
     left: 4px;
     width: calc(50% - 4px);
-    background: white;
+    background: var(--surface-card);
     border-radius: 36px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-1);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
 }
 
 .sliderRight {
     transform: translateX(calc(100%));
-}
-
-@media (prefers-color-scheme: dark) {
-    .toggleContainer {
-        background: #374151;
-    }
-
-    .slider {
-        background: #1f2937;
-    }
-
-    .toggleButton.active {
-        color: #60a5fa;
-    }
 }

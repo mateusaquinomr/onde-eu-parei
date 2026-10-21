@@ -1,32 +1,30 @@
 import { useState } from 'react';
 import type { Topic } from '@/features/topics/types/topic.types';
-import { useDueReviews } from '../../hooks/useReviews';
+import { useDueReviews, useAllScheduledReviews, useCompletedReviews } from '../../hooks/useReviews';
 import { REVIEW_INTERVALS_DAYS } from '../../types/review.types';
 import styles from './ReviewWidget.module.css';
 
 interface ReviewWidgetProps {
     topics: Topic[];
-    onCompleteReview: (topicId: string, contentId: string, durationMinutes: number) => void;
+    onCompleteReview: (topicId: string, contentId: string) => void;
 }
 
+type ReviewTab = 'todos' | 'hoje' | 'feitos';
+
 export function ReviewWidget({ topics, onCompleteReview }: ReviewWidgetProps) {
+    const [activeTab, setActiveTab] = useState<ReviewTab>('hoje');
+
     const dueReviews = useDueReviews(topics);
-    const [durations, setDurations] = useState<Record<string, string>>({});
+    const allReviews = useAllScheduledReviews(topics);
+    const completedReviews = useCompletedReviews(topics);
 
-    const handleDurationChange = (contentId: string, value: string) => {
-        setDurations(prev => ({ ...prev, [contentId]: value }));
-    };
+    const items = activeTab === 'hoje' ? dueReviews : activeTab === 'todos' ? allReviews : completedReviews;
 
-    const handleComplete = (topicId: string, contentId: string) => {
-        const raw = durations[contentId];
-        const duration = raw ? Math.max(0, Math.floor(Number(raw))) : 0;
-        onCompleteReview(topicId, contentId, duration);
-        setDurations(prev => {
-            const updated = { ...prev };
-            delete updated[contentId];
-            return updated;
-        });
-    };
+    const emptyMessage = activeTab === 'feitos'
+        ? 'Nenhuma revisão feita ainda'
+        : activeTab === 'todos'
+            ? 'Nenhuma revisão agendada'
+            : 'Nenhuma revisão pendente hoje';
 
     return (
         <div className={styles.container}>
@@ -37,14 +35,35 @@ export function ReviewWidget({ topics, onCompleteReview }: ReviewWidgetProps) {
                 )}
             </div>
 
-            {dueReviews.length === 0 ? (
+            <div className={styles.tabs}>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'todos' ? styles.tabActive : ''}`}
+                    onClick={() => setActiveTab('todos')}
+                >
+                    Todos
+                </button>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'hoje' ? styles.tabActive : ''}`}
+                    onClick={() => setActiveTab('hoje')}
+                >
+                    Hoje
+                </button>
+                <button
+                    className={`${styles.tabButton} ${activeTab === 'feitos' ? styles.tabActive : ''}`}
+                    onClick={() => setActiveTab('feitos')}
+                >
+                    Feitos
+                </button>
+            </div>
+
+            {items.length === 0 ? (
                 <div className={styles.emptyState}>
                     <span className="material-icons">event_available</span>
-                    <p>Nenhuma revisão pendente hoje</p>
+                    <p>{emptyMessage}</p>
                 </div>
             ) : (
                 <ul className={styles.list}>
-                    {dueReviews.map((item) => (
+                    {items.map((item) => (
                         <li
                             key={item.contentId}
                             className={`${styles.item} ${item.daysOverdue > 0 ? styles.overdueItem : ''}`}
@@ -53,8 +72,10 @@ export function ReviewWidget({ topics, onCompleteReview }: ReviewWidgetProps) {
                                 <span className={styles.topicName}>{item.topicName}</span>
                                 <span className={styles.contentTitle}>{item.contentTitle}</span>
                                 <span className={styles.stageLabel}>
-                                    Revisão {item.stage + 1} de {REVIEW_INTERVALS_DAYS.length}
-                                    {item.daysOverdue > 0 && (
+                                    {activeTab === 'feitos'
+                                        ? `${item.reviewCount} ${item.reviewCount === 1 ? 'revisão feita' : 'revisões feitas'}`
+                                        : `Revisão ${item.stage + 1} de ${REVIEW_INTERVALS_DAYS.length} `}
+                                    {activeTab !== 'feitos' && item.daysOverdue > 0 && (
                                         <span className={styles.overdueTag}>
                                             · {item.daysOverdue} {item.daysOverdue === 1 ? 'dia' : 'dias'} atrasada
                                         </span>
@@ -62,23 +83,15 @@ export function ReviewWidget({ topics, onCompleteReview }: ReviewWidgetProps) {
                                 </span>
                             </div>
 
-                            <div className={styles.itemActions}>
-                                <input
-                                    className={styles.durationInput}
-                                    type="number"
-                                    min={0}
-                                    placeholder="min"
-                                    value={durations[item.contentId] || ''}
-                                    onChange={(e) => handleDurationChange(item.contentId, e.target.value)}
-                                />
+                            {activeTab !== 'feitos' && (
                                 <button
                                     className={styles.completeButton}
-                                    onClick={() => handleComplete(item.topicId, item.contentId)}
+                                    onClick={() => onCompleteReview(item.topicId, item.contentId)}
                                     title="Marcar como revisado"
                                 >
                                     <span className="material-icons">check</span>
                                 </button>
-                            </div>
+                            )}
                         </li>
                     ))}
                 </ul>

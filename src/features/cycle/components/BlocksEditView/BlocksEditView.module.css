@@ -32,18 +32,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 6px 0;
-    border-bottom: 1px dashed #e5e7eb;
+    border-bottom: 1px dashed var(--surface-border-muted);
 }
 
 .topicName {
     font-size: 13px;
-    color: #1f2937;
+    color: var(--text-body-secondary);
 }
 
 .topicMinutes {
     font-size: 13px;
     font-weight: 600;
-    color: #3b82f6;
+    color: var(--color-primary);
 }
 
 .blocks {
@@ -57,7 +57,7 @@
 
 .dragHint {
     font-size: 11px;
-    color: #9ca3af;
+    color: var(--text-muted);
     margin: -6px 0 0 0;
 }
 
@@ -66,9 +66,9 @@
     align-items: center;
     gap: 12px;
     padding: 10px;
-    background: #f9fafb;
+    background: var(--surface-card);
     border-radius: 6px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
 }
 
 .block.dragging {
@@ -78,7 +78,7 @@
 
 .dragHandle {
     cursor: grab;
-    color: #9ca3af;
+    color: var(--text-body-secondary);
     font-size: 18px;
     flex-shrink: 0;
 }
@@ -90,43 +90,43 @@
 .position {
     font-size: 11px;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     min-width: 35px;
 }
 
 .topicName {
     flex: 1;
     font-size: 13px;
-    color: #1f2937;
+    color: var(--text-body-secondary);
 }
 
 .minutesInput {
     width: 56px;
     font-size: 13px;
     font-weight: 600;
-    color: #3b82f6;
-    border: 1px solid #e5e7eb;
+    color: var(--color-primary);
+    border: 1px solid var(--surface-border-muted);
     border-radius: 4px;
     padding: 4px 6px;
     text-align: right;
-    background: white;
+    background: var(--input-bg);
 }
 
 .minutesInput:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: var(--input-border-focus);
 }
 
 .minutesLabel {
     font-size: 12px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     margin-right: 4px;
 }
 
 .minutes {
     font-size: 13px;
     font-weight: 600;
-    color: #3b82f6;
+    color: var(--color-primary);
     min-width: 45px;
 }
 
@@ -136,49 +136,11 @@
 }
 
 .blocks::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--surface-border-muted);
     border-radius: 2px;
 }
 
 .blocks::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: var(--surface-border);
     border-radius: 2px;
-}
-
-
-@media (prefers-color-scheme: dark) {
-    .topicRow {
-        border-bottom-color: #374151;
-    }
-
-    .topicName {
-        color: #e5e7eb;
-    }
-
-    .block {
-        background: #374151;
-        border-color: #4b5563;
-    }
-
-    .minutesInput {
-        background: #1f2937;
-        border-color: #4b5563;
-        color: #60a5fa;
-    }
-
-    .position {
-        color: #9ca3af;
-    }
-
-    .topicName {
-        color: #e5e7eb;
-    }
-
-    .blocks::-webkit-scrollbar-track {
-        background: #374151;
-    }
-
-    .blocks::-webkit-scrollbar-thumb {
-        background: #4b5563;
-    }
 }

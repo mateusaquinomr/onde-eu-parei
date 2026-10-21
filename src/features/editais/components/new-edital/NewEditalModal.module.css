@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--surface-overlay-base);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,14 +12,14 @@
 }
 
 .modal {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-modal);
     border-radius: 16px;
     width: 90%;
     max-width: 560px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-4);
 }
 
 .header {
@@ -27,33 +27,34 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    border-bottom: 1px solid var(--surface-border-muted);
 }
 
 .title {
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
 }
 
 .closeButton {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
     padding: 0;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 35px;
     transition: background-color 0.2s;
 }
 
 .closeButton:hover {
-    background-color: var(--color-bg-secondary, #f3f4f6);
+    background-color: var(--surface-button-secondary);
+    color: var(--color-primary) !important;
 }
 
 .closeButton .material-icons {
@@ -73,8 +74,8 @@
 }
 
 .optionCard {
-    background: var(--color-bg-secondary, #f9fafb);
-    border: 2px solid var(--color-border, #e5e7eb);
+    background: var(--surface-panel);
+    border: 2px solid var(--surface-border-muted);
     border-radius: 12px;
     padding: 1.5rem;
     text-align: center;
@@ -87,8 +88,8 @@
 }
 
 .optionCard:hover {
-    border-color: var(--color-primary, #3b82f6);
-    background: var(--color-primary-light, #eff6ff);
+    border-color: var(--color-primary);
+    background: var(--color-primary-subtle);
     transform: translateY(-2px);
 }
 
@@ -99,8 +100,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--color-bg-tertiary, #e5e7eb);
-    color: var(--color-text-secondary, #6b7280);
+    background: var(--surface-panel);
+    color: var(--text-body-secondary);
 }
 
 .optionIcon .material-icons {
@@ -108,20 +109,20 @@
 }
 
 .optionCard:hover .optionIcon {
-    background: var(--color-primary-light, #dbeafe);
-    color: var(--color-primary, #3b82f6);
+    background: var(--color-primary);
+    color: var(--color-primary-subtle);
 }
 
 .optionCard h3 {
     font-size: 1rem;
     font-weight: 600;
     margin: 0;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
 }
 
 .optionCard p {
     font-size: 0.875rem;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
     margin: 0;
 }
 
@@ -141,21 +142,26 @@
 .field label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--color-text-primary, #1f2937);
+    color: var(--text-body-secondary);
 }
 
 .footer {
     padding: 1rem 1.5rem;
-    border-top: 1px solid var(--color-border, #e5e7eb);
+    border-top: 1px solid var(--surface-border-muted);
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
 }
 
-.footer button {
+.close {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    color: var(--text-body-secondary);
+}
+
+.footer .close:hover {
+    color: var(--color-primary) !important;
 }
 
 .footer button .material-icons {
@@ -165,33 +171,5 @@
 @media (max-width: 640px) {
     .options {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .modal {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .optionCard {
-        background: var(--color-bg-tertiary, #374151);
-        border-color: var(--color-border-dark, #4b5563);
-    }
-
-    .optionCard:hover {
-        border-color: var(--color-primary, #3b82f6);
-        background: #1e3a5f;
-    }
-
-    .optionIcon {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .optionCard h3 {
-        color: #f3f4f6;
-    }
-
-    .field label {
-        color: #f3f4f6;
     }
 }

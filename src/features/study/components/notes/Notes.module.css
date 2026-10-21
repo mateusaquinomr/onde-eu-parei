@@ -16,6 +16,7 @@
     margin: 0;
     font-size: 16px;
     font-weight: 600;
+    color: var(--text-heading);
 }
 
 .notes-header__actions {
@@ -29,7 +30,7 @@
     cursor: pointer;
     padding: 4px 8px;
     font-size: 16px;
-    color: inherit;
+    color: var(--text-body-secondary);
 }
 
 .notes-header .icon-button:hover {
@@ -41,9 +42,8 @@
     flex-direction: column;
     gap: 8px;
     padding: 12px;
-    border: 1px solid #e5e7eb;
     border-radius: 12px;
-    background-color: #f9fafb;
+    background-color: var(--surface-card);
     margin-bottom: 16px;
 }
 
@@ -78,7 +78,7 @@
     border: none;
     cursor: pointer;
     padding: 4px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-size: 16px;
 }
 
@@ -95,18 +95,41 @@
     gap: 8px;
 }
 
-.notesInputActions button {
-    background: none;
+.notesInputIconButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--surface-button-secondary);
     border: none;
     cursor: pointer;
-    padding: 4px 8px;
-    color: #6b7280;
-    font-size: 16px;
+    color: var(--color-primary);
+    padding: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.notesInputActions button:hover {
+.notesInputIconButton .material-icons {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.notesInputIconButton :global(.material-symbols-outlined) {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.notesInputIconButton:hover {
+    background-color: var(--surface-hover);
     opacity: 0.7;
 }
+
+.notesInputIconButton.active {
+    background-color: var(--color-primary);
+    color: var(--text-inverse);
+}
+
 
 .notesInputFields {
     display: flex;
@@ -123,11 +146,11 @@
     font-weight: 700;
     font-size: 1.2em;
     padding: 4px 0;
-    color: #1f2937;
+    color: var(--text-body-secondary);
 }
 
 .notesInputTitle::placeholder {
-    color: #9ca3af;
+    color: var(--text-muted);
     font-weight: normal;
 }
 
@@ -139,7 +162,7 @@
     font: inherit;
     font-weight: 400;
     padding: 4px 0;
-    color: #1f2937;
+    color: var(--text-body-secondary);
     resize: none;
     font-family: inherit;
     line-height: 1.5;
@@ -149,7 +172,7 @@
 }
 
 .notesInputContent::placeholder {
-    color: #9ca3af;
+    color: var(--text-muted);
 }
 
 .notes-list {
@@ -168,8 +191,8 @@
 .note-card {
     padding: 12px;
     border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    background: #ffffff;
+    /* border: 1px solid var(--surface-border-muted); */
+    background: var(--surface-card);
     transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
@@ -178,8 +201,8 @@
 }
 
 .note-card:hover {
-    background: #f9fafb;
-    border-color: #d1d5db;
+    background: var(--surface-button-secondary-hover);
+    border-color: var(--surface-border);
 }
 
 .note-header {
@@ -196,7 +219,7 @@
     cursor: pointer;
     flex: 1;
     line-height: 1.4;
-    color: #1f2937;
+    color: var(--text-body-secondary);
 }
 
 .note-menu-container {
@@ -209,7 +232,7 @@
     border: none;
     cursor: pointer;
     padding: 4px;
-    color: #9ca3af;
+    color: var(--text-muted);
     font-size: 18px;
     border-radius: 4px;
     line-height: 1;
@@ -218,21 +241,21 @@
 }
 
 .note-menu-button:hover {
-    background: #f3f4f6;
-    color: #6b7280;
+    background: var(--surface-hover);
+    color: var(--color-primary);
 }
 
 .note-menu-dropdown {
     position: absolute;
     top: 100%;
     right: 0;
-    background: white;
+    background: var(--surface-dropdown);
     border-radius: 8px;
     padding: 4px;
     min-width: 100px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--surface-shadow-2);
     z-index: 1000;
-    border: 1px solid #e5e7eb;
+    /* border: 1px solid var(--surface-border-muted); */
 }
 
 .note-menu-item {
@@ -244,22 +267,22 @@
     cursor: pointer;
     border-radius: 4px;
     font-size: 13px;
-    color: #374151;
+    color: var(--text-body-secondary);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .note-menu-item:hover {
-    background: #f3f4f6;
+    background: var(--surface-hover);
 }
 
 .note-menu-item.delete {
-    color: #ef4444;
+    color: var(--feedback-error-text);
 }
 
 .note-menu-item.delete:hover {
-    background: #fee2e2;
+    background: var(--feedback-error-bg);
 }
 
 .note-body {
@@ -268,7 +291,7 @@
 
 .note-preview {
     margin: 0;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -280,7 +303,7 @@
 }
 
 .note-content-expanded {
-    color: #4b5563;
+    color: var(--text-body-secondary);
     word-break: break-word;
     line-height: 1.5;
     max-height: 300px;
@@ -292,12 +315,12 @@
 .note-footer {
     margin-top: 4px;
     padding-top: 6px;
-    border-top: 1px solid #f3f4f6;
+    border-top: 1px solid var(--surface-panel);
 }
 
 .note-date {
     font-size: 11px;
-    color: #9ca3af;
+    color: var(--color-primary);
 }
 
 .note-card.expanded {
@@ -346,7 +369,7 @@
 }
 
 .note-item.drop-over {
-    border-top: 2px solid #3b82f6;
+    border-top: 2px solid var(--color-primary);
     margin-top: -2px;
 }
 
@@ -386,17 +409,17 @@
 }
 
 .notesScrollContainer.fixedHeight.showAll::-webkit-scrollbar-thumb {
-    background: var(--color-gray-500, #6b7280);
+    background: var(--color-gray-500);
     border-radius: 6px;
 }
 
 .notesScrollContainer.fixedHeight.showAll::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gray-600, #4b5563);
+    background: var(--color-gray-600);
 }
 
 .notesScrollContainer.fixedHeight.showAll {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-gray-500, #6b7280) transparent;
+    scrollbar-color: var(--color-gray-500) transparent;
 }
 
 .notesListControls {
@@ -409,7 +432,7 @@
 .linkButton {
     background: none;
     border: none;
-    color: var(--color-primary, #007bff);
+    color: var(--color-primary);
     cursor: pointer;
     font-size: 14px;
     padding: 6px 12px;
@@ -421,7 +444,7 @@
 }
 
 .linkButton:hover {
-    background: rgba(0, 123, 255, 0.1);
+    background: var(--color-primary-subtle);
 }
 
 .addNoteButton {
@@ -431,20 +454,20 @@
     gap: 6px;
     padding: 6px 12px;
     width: 100%;
-    background: #f3f4f6;
+    background: var(--surface-panel);
     border: none;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     cursor: pointer;
     transition: all 0.2s;
     margin-bottom: 16px;
 }
 
 .addNoteButton:hover {
-    background: #e5e7eb;
-    color: #374151;
+    background: var(--surface-button-secondary-hover);
+    color: var(--color-primary);
 }
 
 .addNoteWrapper {
@@ -460,19 +483,19 @@
     gap: 6px;
     width: 100%;
     padding: 8px 12px;
-    background: #f3f4f6;
+    background: var(--surface-panel);
     border: none;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .addNoteButtonSmall:hover {
-    background: #e5e7eb;
-    color: #374151;
+    background: var(--surface-button-secondary-hover);
+    color: var(--color-primary);
 }
 
 .addNoteButtonSmall .material-icons {
@@ -490,10 +513,10 @@
     justify-content: center;
     gap: 12px;
     padding: 48px 24px;
-    color: #9ca3af;
+    color: var(--text-muted);
     font-size: 14px;
     text-align: center;
-    background: #f9fafb;
+    background: var(--surface-card);
     border-radius: 12px;
 }
 
@@ -513,115 +536,14 @@
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: #888;
+    color: var(--text-body-secondary);
 }
 
 .notes-header__actions .add-note:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #333;
+    background-color: var(--surface-hover);
+    color: var(--text-body);
 }
 
 .notes-header__actions .add-note.active {
-    color: #3b82f6;
-}
-
-@media (prefers-color-scheme: dark) {
-    .notesInput {
-        background-color: #1f2937;
-        border-color: #374151;
-    }
-
-    .notesInputTitle {
-        color: #f3f4f6;
-    }
-
-    .notesInputTitle::placeholder {
-        color: #6b7280;
-    }
-
-    .notesInputContent {
-        color: #f3f4f6;
-    }
-
-    .notesInputContent::placeholder {
-        color: #6b7280;
-    }
-
-    .notesInputLeft,
-    .notesInputActions button {
-        color: #9ca3af;
-    }
-
-    .addNoteButton,
-    .addNoteButtonSmall {
-        background: #374151;
-        color: #9ca3af;
-    }
-
-    .addNoteButton:hover,
-    .addNoteButtonSmall:hover {
-        background: #4b5563;
-        color: #f3f4f6;
-    }
-
-    .emptyNotesMessage {
-        background: #1f2937;
-        color: #6b7280;
-    }
-
-    .notes-header__actions .add-note {
-        color: #888;
-    }
-
-    .notes-header__actions .add-note:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #fff;
-    }
-
-    .notes-header__actions .add-note.active {
-        color: #3b82f6;
-    }
-
-    .note-card {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .note-card:hover {
-        background: #374151;
-    }
-
-    .note-title {
-        color: #f3f4f6;
-    }
-
-    .note-preview {
-        color: #9ca3af;
-    }
-
-    .note-content-expanded {
-        color: #d1d5db;
-    }
-
-    .note-footer {
-        border-top-color: #374151;
-    }
-
-    .note-menu-dropdown {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .note-menu-item {
-        color: #f3f4f6;
-    }
-
-    .note-menu-item:hover {
-        background: #374151;
-    }
-
-    .note-menu-button:hover {
-        background: #374151;
-        color: #d1d5db;
-    }
+    color: var(--color-primary);
 }

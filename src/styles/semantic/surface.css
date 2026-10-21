@@ -1,39 +1,56 @@
 :root {
-
+    /* BASE SURFACES */
     --surface-page: var(--color-bg-primary);
     --surface-container: var(--color-bg-secondary);
-    --surface-card: var(--color-bg-tertiary);
-    --surface-panel: var(--color-bg-accent);
-    --surface-overlay: var(--color-bg-primary);
-    --surface-inverse: var(--color-bg-inverse);
+    --surface-card: var(--surface-card-background);
+    --surface-panel: var(--surface-panel-background);
     --surface-muted: var(--color-bg-muted);
+    --surface-inverse: var(--color-bg-inverse);
 
-    --surface-hover: var(--color-gray-100);
-    --surface-active: var(--color-gray-200);
+    /* INTERACTION */
+    --surface-hover: var(--color-bg-tertiary);
+    --surface-active: var(--surface-card-background-active);
     --surface-selected: var(--color-primary-subtle);
-    --surface-disabled: var(--color-gray-100);
+    --surface-disabled: var(--color-bg-tertiary);
 
+    --surface-button-primary: var(--color-primary);
+    --surface-button-primary-hover: var(--color-primary-hover);
+    --surface-button-primary-active: var(--color-primary-active);
+    --surface-button-primary-disabled: var(--color-primary-disabled);
+
+    /* SECONDARY BUTTON */
+    --surface-button-secondary: var(--surface-button-background);
+    --surface-button-secondary-hover: var(--surface-button-background-hover);
+    --surface-button-secondary-active: var(--surface-button-background-active);
+    --surface-button-secondary-disabled: var(--surface-disabled);
+
+    /* STRUCTURAL */
+    --surface-header: var(--surface-header-background);
+    --surface-footer: var(--color-bg-muted);
+    --surface-sidebar: var(--color-bg-accent);
+    --surface-modal: var(--surface-modal-background);
+    --surface-dropdown: var(--surface-dropdown-background);
+    --surface-dropdown-hover: var(--surface-dropdown-background-hover);
+    --surface-tooltip: var(--color-bg-inverse);
+    --surface-toast: var(--color-bg-inverse);
+    --surface-popover: var(--color-bg-primary);
+
+    /* BORDERS */
     --surface-border: var(--color-border);
     --surface-border-muted: var(--color-border-muted);
     --surface-border-strong: var(--color-border-strong);
     --surface-border-inverse: var(--color-border-inverse);
     --surface-border-transparent: transparent;
 
+    /* SHADOWS */
     --surface-shadow-1: var(--shadow-sm);
     --surface-shadow-2: var(--shadow-md);
     --surface-shadow-3: var(--shadow-lg);
     --surface-shadow-4: var(--shadow-xl);
     --surface-shadow-inner: var(--shadow-inner);
 
+    /* OVERLAYS */
     --surface-overlay-light: var(--color-overlay-light);
     --surface-overlay-base: var(--color-overlay);
     --surface-overlay-dark: var(--color-overlay-dark);
-
-    --surface-header: var(--color-bg);
-    --surface-footer: var(--color-bg-muted);
-    --surface-sidebar: var(--color-bg-accent);
-    --surface-modal: var(--color-bg);
-    --surface-tooltip: var(--color-bg-inverse);
-    --surface-toast: var(--color-bg-inverse);
-    --surface-popover: var(--color-bg);
 }

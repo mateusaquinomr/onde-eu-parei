@@ -29,8 +29,8 @@
 }
 
 .buttonWrapper button:disabled {
-    background-color: #9ca3af !important;
-    color: #e5e7eb !important;
+    background-color: var(--action-primary-bg-disabled) !important;
+    color: var(--action-primary-text-disabled) !important;
     cursor: not-allowed !important;
     opacity: 0.6;
     transform: none !important;
@@ -38,7 +38,7 @@
 
 .buttonWrapper button:disabled:hover {
     transform: none !important;
-    background-color: #9ca3af !important;
+    background-color: var(--action-primary-bg-disabled) !important;
 }
 
 .field select,

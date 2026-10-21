@@ -1,8 +1,8 @@
 .container {
-    background: white;
+    background: var(--surface-card);
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-1);
 }
 
 .heatmap {
@@ -17,7 +17,7 @@
 
 .daysHeader span {
     font-size: 10px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     text-align: center;
 }
 
@@ -45,23 +45,23 @@
 }
 
 .intensity0 {
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
 }
 
 .intensity1 {
-    background: #9fe0b0;
+    background: var(--color-success-subtle);
 }
 
 .intensity2 {
-    background: #4fc08d;
+    background: var(--color-success);
 }
 
 .intensity3 {
-    background: #2e9a6e;
+    background: var(--color-success-hover);
 }
 
 .intensity4 {
-    background: #1e6f4c;
+    background: var(--color-success-active);
 }
 
 .legend {
@@ -85,23 +85,5 @@
 
 .legendLabel {
     font-size: 10px;
-    color: #6b7280;
-}
-
-@media (prefers-color-scheme: dark) {
-    .container {
-        background: #1f2937;
-    }
-
-    .daysHeader span {
-        color: #9ca3af;
-    }
-
-    .intensity0 {
-        background: #374151;
-    }
-
-    .legendLabel {
-        color: #9ca3af;
-    }
+    color: var(--text-body-secondary);
 }

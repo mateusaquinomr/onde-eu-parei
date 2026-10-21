@@ -145,7 +145,7 @@ export function NewEditalModal({ isOpen, onClose, onImportClick, onEditalCreated
                                 variant="ghost"
                                 onClick={() => (isEditMode ? onClose() : setShowManualForm(false))}
                             >
-                                <span className="material-icons">{isEditMode ? 'close' : 'arrow_back'}</span>
+                                <span className="material-icons">{isEditMode ? '' : 'arrow_back'}</span>
                                 {isEditMode ? 'Cancelar' : 'Voltar'}
                             </Button>
                             <Button
@@ -153,7 +153,7 @@ export function NewEditalModal({ isOpen, onClose, onImportClick, onEditalCreated
                                 variant="primary"
                                 disabled={!nome.trim() || !banca.trim() || !dataProva || !local.trim()}
                             >
-                                <span className="material-icons">check</span>
+                                {/* <span className="material-icons">check</span> */}
                                 {isEditMode ? 'Salvar alterações' : 'Criar edital'}
                             </Button>
                         </div>

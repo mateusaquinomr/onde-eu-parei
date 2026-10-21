@@ -12,8 +12,9 @@ export function TopicList({ topics, onTopicClick }: TopicListProps) {
     if (topics.length === 0) {
         return (
             <div className={styles.emptyState}>
-                <Text variant="body">Nenhum tópico ainda</Text>
-                <Text variant="caption">Clique em "+ Adicionar tópico" para começar</Text>
+                <Text variant="caption">Nenhum tópico ainda</Text>
+                <br></br>
+                <Text variant="caption">Clique em "Adicionar tópico" para começar</Text>
             </div>
         );
     }

@@ -7,12 +7,12 @@
 }
 
 .card {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-card);
     border-radius: 24px;
     padding: 2rem;
     width: 100%;
     max-width: 480px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-4);
 }
 
 .header {
@@ -23,19 +23,20 @@
 .title {
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
+    color: var(--text-heading);
 }
 
 .stepHint {
     display: inline-block;
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     margin-bottom: 0.75rem;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .subtitle {
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
 .form {
@@ -51,12 +52,12 @@
 }
 
 .helper {
-    color: #9ca3af;
+    color: var(--text-muted);
     font-size: 0.75rem;
 }
 
 .errorText {
-    color: #ef4444;
+    color: var(--feedback-error-text);
     font-size: 0.75rem;
     margin-top: 0.25rem;
 }
@@ -73,9 +74,9 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem;
-    background: #f9fafb;
+    background: var(--surface-muted);
     border-radius: 12px;
-    border: 1px dashed #e5e7eb;
+    border: 1px dashed var(--surface-border-muted);
 }
 
 .avatarIcon {
@@ -83,10 +84,9 @@
 }
 
 .avatarText {
-    color: #9ca3af;
+    color: var(--text-muted);
 }
 
-/* Responsivo */
 @media (max-width: 640px) {
     .card {
         padding: 1.5rem;
@@ -102,22 +102,5 @@
 
     .buttonGroup button {
         width: 100%;
-    }
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .stepHint {
-        background: #374151;
-        color: #9ca3af;
-    }
-
-    .avatarPlaceholder {
-        background: #1f2937;
-        border-color: #374151;
     }
 }

@@ -54,52 +54,21 @@ class CycleService {
         return this.currentCycle as Cycle;
     }
 
-    async completeBlock(cycleId: string, blockId: string, topics: Topic[]): Promise<Cycle | null> {
+    // concluir um bloco e concluir um conteúdo são eventos independentes
+    // (spec 1.1). A conclusão de conteúdo é feita à parte, via
+    // topicsService, quando o usuário pede explicitamente.
+    async completeBlock(cycleId: string, blockId: string): Promise<Cycle | null> {
         if (!cycleId || cycleId === 'undefined') {
             console.error('completeBlock: cycleId inválido:', cycleId);
             return null;
         }
 
         try {
-            console.log(`Completando bloco ${blockId} no ciclo ${cycleId}`);
-
             const response = await api.put(`/cycles/${cycleId}/blocks/${blockId}/complete`);
-            let updatedCycle = response.data;
+            const updatedCycle = response.data;
             if (!updatedCycle) return null;
 
-            const completedBlock = updatedCycle.blocks.find((b: CycleBlock) => b.id === blockId);
-
-            if (completedBlock) {
-                const topic = topics.find(t => t.id === completedBlock.topicId);
-                if (topic) {
-                    const currentContent = topic.contents.find(c => c.title === completedBlock.currentContent);
-                    if (currentContent && !currentContent.completed) {
-                        try {
-                            await api.put(`/topics/${topic.id}/contents/${currentContent.id}/complete`);
-                        } catch (err) {
-                            console.error('Erro ao marcar conteúdo como concluído:', err);
-                        }
-                    }
-
-                    const nextContent = topic.contents.find(c => !c.completed);
-                    if (nextContent && updatedCycle.blocks.some((b: CycleBlock) => b.id === blockId)) {
-                        const updatedBlocks = updatedCycle.blocks.map((b: CycleBlock) =>
-                            b.id === blockId ? { ...b, currentContent: nextContent.title } : b
-                        );
-                        try {
-                            const updateResponse = await api.put(`/cycles/${cycleId}`, { blocks: updatedBlocks });
-                            updatedCycle = updateResponse.data;
-                        } catch (err) {
-                            console.error('Erro ao atualizar bloco:', err);
-                        }
-                    }
-                }
-            }
-
             this.currentCycle = updatedCycle;
-            if (updatedCycle.blocks.every((b: CycleBlock) => b.completed)) {
-                this.currentCycle = null;
-            }
             return updatedCycle;
         } catch (error) {
             console.error('Erro ao completar bloco:', error);

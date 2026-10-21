@@ -1,7 +1,5 @@
 .container {
     max-width: 800px;
-    /* margin: 0 auto; */
-    /* padding: 2rem; */
 }
 
 .header {
@@ -9,10 +7,11 @@
 }
 
 .card {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-card);
     border-radius: 24px;
     padding: 2rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-left: 15rem;
+    box-shadow: var(--surface-shadow-1);
 }
 
 .avatarSection {
@@ -22,7 +21,7 @@
     gap: 1rem;
     margin-bottom: 2rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border-muted, #e5e7eb);
+    border-bottom: 1px solid var(--surface-border-muted);
 }
 
 .avatar {
@@ -47,7 +46,7 @@
     justify-content: center;
     font-size: 2.5rem;
     font-weight: 600;
-    color: white;
+    color: var(--text-inverse);
 }
 
 .form {
@@ -63,7 +62,7 @@
 }
 
 .errorText {
-    color: #ef4444;
+    color: var(--feedback-error-text);
     font-size: 0.75rem;
     margin-top: 0.25rem;
 }
@@ -71,7 +70,7 @@
 .infoRow {
     display: flex;
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--color-border-muted, #e5e7eb);
+    border-bottom: 1px solid var(--surface-border-muted);
 }
 
 .infoRow:last-of-type {
@@ -82,10 +81,12 @@
     flex: 0 0 140px;
     font-weight: 500;
     margin-right: 1.5rem;
+    color: var(--text-heading);
 }
 
 .infoValue {
     flex: 1;
+    color: var(--text-body);
 }
 
 .buttonGroup {
@@ -94,7 +95,7 @@
     gap: 1rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--color-border-muted, #e5e7eb);
+    border-top: 1px solid var(--surface-border-muted);
 }
 
 .loading {
@@ -102,8 +103,9 @@
     align-items: center;
     justify-content: center;
     min-height: 400px;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-heading);
 }
+
 
 .emptyState {
     display: flex;
@@ -113,24 +115,6 @@
     gap: 1rem;
     min-height: 400px;
     text-align: center;
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .infoRow {
-        border-bottom-color: #374151;
-    }
-
-    .buttonGroup {
-        border-top-color: #374151;
-    }
-
-    .avatarSection {
-        border-bottom-color: #374151;
-    }
 }
 
 @media (max-width: 640px) {

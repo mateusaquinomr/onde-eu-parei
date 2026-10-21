@@ -48,10 +48,10 @@
 }
 
 .emptyWidget {
-    background: white;
+    background: var(--surface-card);
     border-radius: 12px;
     padding: 48px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--surface-shadow-1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,7 +87,7 @@
     justify-content: center;
     align-items: center;
     height: 200px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .leftColumn::-webkit-scrollbar,
@@ -97,43 +97,19 @@
 
 .leftColumn::-webkit-scrollbar-track,
 .rightColumn::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--surface-border-muted);
     border-radius: 3px;
 }
 
 .leftColumn::-webkit-scrollbar-thumb,
 .rightColumn::-webkit-scrollbar-thumb {
-    background: #cbd5e0;
+    background: var(--surface-border);
     border-radius: 3px;
 }
 
 .leftColumn::-webkit-scrollbar-thumb:hover,
 .rightColumn::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-@media (prefers-color-scheme: dark) {
-    .emptyWidget {
-        background: #1f2937;
-    }
-
-    .emptyState {
-        background: #1f2937;
-    }
-
-    .loading {
-        color: #9ca3af;
-    }
-
-    .leftColumn::-webkit-scrollbar-track,
-    .rightColumn::-webkit-scrollbar-track {
-        background: #374151;
-    }
-
-    .leftColumn::-webkit-scrollbar-thumb,
-    .rightColumn::-webkit-scrollbar-thumb {
-        background: #4b5563;
-    }
+    background: var(--surface-border-strong);
 }
 
 @media (max-width: 1024px) {
@@ -174,4 +150,66 @@
     .emptyWidget {
         padding: 32px;
     }
+}
+
+.confirmOverlay {
+    position: fixed;
+    inset: 0;
+    background: var(--surface-overlay-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.confirmModal {
+    background: var(--surface-card);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: var(--surface-shadow-4);
+}
+
+.confirmTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin: 0 0 10px 0;
+}
+
+.confirmText {
+    font-size: 0.9rem;
+    color: var(--text-body-secondary);
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+}
+
+.confirmButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.confirmDangerButton {
+    background: var(--action-danger-bg);
+    color: var(--action-danger-text);
+    border: var(--action-danger-border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.confirmDangerButton:hover {
+    background: var(--action-danger-bg-hover);
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: var(--text-heading);
 }

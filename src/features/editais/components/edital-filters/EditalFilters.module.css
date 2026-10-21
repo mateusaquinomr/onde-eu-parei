@@ -11,9 +11,9 @@
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 9999px;
-    border: 1px solid var(--color-border, #e5e7eb);
-    background: var(--color-bg-primary, #ffffff);
-    color: var(--color-text-secondary, #6b7280);
+    border: 1px solid var(--surface-border-muted);
+    background: var(--surface-button-secondary);
+    color: var(--text-body-secondary);
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -24,37 +24,32 @@
 }
 
 .filterBtn:hover {
-    border-color: var(--color-primary, #3b82f6);
-    color: var(--color-primary, #3b82f6);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--surface-button-secondary-hover);
+}
+
+.filterBtn:hover .count {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--surface-button-secondary-hover);
 }
 
 .filterBtn.active {
-    background: var(--color-primary, #3b82f6);
-    color: white;
-    border-color: var(--color-primary, #3b82f6);
+    background: var(--color-primary);
+    color: var(--text-inverse);
+    border-color: var(--color-primary);
 }
 
 .count {
-    background: var(--color-bg-secondary, #f3f4f6);
+    background: var(--surface-muted);
     padding: 0.125rem 0.5rem;
     border-radius: 9999px;
     font-size: 0.75rem;
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
 }
 
 .filterBtn.active .count {
     background: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-@media (prefers-color-scheme: dark) {
-    .filterBtn {
-        background: var(--color-bg-secondary, #1f2937);
-        border-color: var(--color-border-dark, #4b5563);
-        color: #9ca3af;
-    }
-
-    .count {
-        background: var(--color-bg-tertiary, #374151);
-    }
+    color: var(--text-inverse);
 }

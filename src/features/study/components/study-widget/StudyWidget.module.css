@@ -11,12 +11,6 @@
     padding: 0rem 0rem;
 }
 
-@media (prefers-color-scheme: dark) {
-    .studyWidget {
-        background: #1f2937;
-    }
-}
-
 @media (max-width: 640px) {
     .timerSection {
         /* padding: 0.75rem; */

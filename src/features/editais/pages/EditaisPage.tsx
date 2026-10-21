@@ -6,6 +6,7 @@ import { EditalFilters } from '../components/edital-filters/EditalFilters';
 import { EditalHeader } from '../components/edital-header/EditalHeader';
 import { NewEditalModal } from '../components/new-edital/NewEditalModal';
 import { ImportEditalModal } from '../components/import-edital/ImportEditalModal';
+import { ArchivedEditaisModal } from '../components/archived-editais/ArchivedEditaisModal';
 import { useEditais } from '../hooks/useEditais';
 import { useTopics } from '@/features/topics/hooks/useTopics';
 import { TopicList } from '@/features/topics/components/TopicList/TopicList';
@@ -13,33 +14,51 @@ import { CreateTopicModal } from '@/features/topics/components/CreateTopicModal/
 import type { Edital } from '../types/edital.types';
 import styles from './EditaisPage.module.css';
 
+const ACTIVE_FILTER_STORAGE_KEY = 'editais_active_filter';
+
 export function EditaisPage() {
     const navigate = useNavigate();
-    const { editais, loading: editaisLoading, refresh: refreshEditais, deleteEdital } = useEditais();
+    const { editais, loading: editaisLoading, refresh: refreshEditais, deleteEdital, updateEdital } = useEditais();
     const { topics, loading: topicsLoading, createTopic, createMultipleTopics, refresh: refreshTopics } = useTopics();
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isImportModalOpen, setIsImportModalOpen] = useState(false);
     const [isNewEditalModalOpen, setIsNewEditalModalOpen] = useState(false);
-    const [activeFilter, setActiveFilter] = useState<string | null>(null);
+    const [isArchivedModalOpen, setIsArchivedModalOpen] = useState(false);
+    const [isTopMenuOpen, setIsTopMenuOpen] = useState(false);
     const [editalParaEditar, setEditalParaEditar] = useState<Edital | null>(null);
 
-    console.log('EditaisPage - editais:', editais);
-    console.log('EditaisPage - activeFilter:', activeFilter);
+    const [activeFilter, setActiveFilterState] = useState<string | null>(() => {
+        return localStorage.getItem(ACTIVE_FILTER_STORAGE_KEY) || null;
+    });
+
+    const setActiveFilter = (editalId: string | null) => {
+        setActiveFilterState(editalId);
+        if (editalId) {
+            localStorage.setItem(ACTIVE_FILTER_STORAGE_KEY, editalId);
+        } else {
+            localStorage.removeItem(ACTIVE_FILTER_STORAGE_KEY);
+        }
+    };
 
     useEffect(() => {
         refreshEditais();
         refreshTopics();
     }, []);
 
-    const filteredTopics = activeFilter
-        ? topics.filter(t => {
-            const match = t.editalId === activeFilter;
-            console.log(`🔍 Tópico: ${t.name}, editalId: ${t.editalId}, filter: ${activeFilter}, match: ${match}`);
-            return match;
-        })
-        : topics;
 
-    console.log('EditaisPage - filteredTopics:', filteredTopics.length);
+    useEffect(() => {
+        if (editaisLoading) return;
+        if (activeFilter && !editais.some(e => e.id === activeFilter)) {
+            setActiveFilter(null);
+        }
+    }, [editaisLoading, editais, activeFilter]);
+
+    const visibleEditais = editais.filter(e => !e.archived);
+    const archivedEditais = editais.filter(e => e.archived);
+
+    const filteredTopics = activeFilter
+        ? topics.filter(t => t.editalId === activeFilter)
+        : topics;
 
     const activeEdital = editais.find(e => e.id === activeFilter);
 
@@ -91,6 +110,37 @@ export function EditaisPage() {
         }
     };
 
+    const handleArchiveEdital = async (edital: Edital) => {
+        const confirmar = window.confirm(
+            `Arquivar "${edital.nome}"? Ele sai da listagem principal, mas nada é apagado — você pode acessá-lo depois em "Arquivados".`
+        );
+        if (!confirmar) return;
+
+        try {
+            await updateEdital(edital.id, { archived: true, archivedAt: new Date() });
+            if (activeFilter === edital.id) {
+                setActiveFilter(null);
+            }
+        } catch (err) {
+            console.error('Erro ao arquivar edital:', err);
+            alert('Não foi possível arquivar o edital. Tente novamente.');
+        }
+    };
+
+    const handleUnarchiveEdital = async (edital: Edital) => {
+        try {
+            await updateEdital(edital.id, { archived: false, archivedAt: null });
+        } catch (err) {
+            console.error('Erro ao desarquivar edital:', err);
+            alert('Não foi possível desarquivar o edital. Tente novamente.');
+        }
+    };
+
+    const handleOpenArchivedEdital = (edital: Edital) => {
+        setIsArchivedModalOpen(false);
+        setActiveFilter(edital.id);
+    };
+
     const handleCloseNewEditalModal = () => {
         setIsNewEditalModalOpen(false);
         setEditalParaEditar(null);
@@ -120,15 +170,50 @@ export function EditaisPage() {
                     >
                         Novo edital
                     </Button>
+
+                    <div className={styles.topMenuContainer}>
+                        <button
+                            className={styles.topMenuButton}
+                            onClick={() => setIsTopMenuOpen(prev => !prev)}
+                            aria-label="Mais opções"
+                        >
+                            <span className="material-icons">more_vert</span>
+                        </button>
+
+                        {isTopMenuOpen && (
+                            <div className={styles.topMenuDropdown}>
+                                <button
+                                    className={styles.topMenuItem}
+                                    onClick={() => {
+                                        setIsTopMenuOpen(false);
+                                        setIsArchivedModalOpen(true);
+                                    }}
+                                >
+                                    <span className="material-icons">archive</span>
+                                    Arquivados
+                                    {archivedEditais.length > 0 && (
+                                        <span className={styles.topMenuBadge}>{archivedEditais.length}</span>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            <EditalFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+            <EditalFilters
+                editais={visibleEditais}
+                topics={topics}
+                loading={editaisLoading}
+                activeFilter={activeFilter}
+                onFilterChange={setActiveFilter}
+            />
 
             {activeFilter && activeEdital && (
                 <EditalHeader
                     edital={activeEdital}
                     onEdit={() => handleEditEdital(activeEdital)}
+                    onArchive={() => handleArchiveEdital(activeEdital)}
                     onDelete={() => handleDeleteEdital(activeEdital)}
                 />
             )}
@@ -193,6 +278,14 @@ export function EditaisPage() {
                 isOpen={isImportModalOpen}
                 onClose={() => setIsImportModalOpen(false)}
                 onImport={handleImportTopics}
+            />
+
+            <ArchivedEditaisModal
+                isOpen={isArchivedModalOpen}
+                onClose={() => setIsArchivedModalOpen(false)}
+                archivedEditais={archivedEditais}
+                onUnarchive={handleUnarchiveEdital}
+                onOpen={handleOpenArchivedEdital}
             />
         </div>
     );

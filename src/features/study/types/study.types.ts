@@ -1,50 +1,31 @@
 export interface StudyProgress {
-    contentId: string;
+    key: string;
     elapsedSeconds: number;
     lastUpdated: string;
-    completed: boolean;
 }
 
 export interface UseStudyTimerProps {
-    contentId: string;
-    estimatedTime: number;
-    initialElapsedTime?: number;
-    onTimeUpdate?: (contentId: string, elapsedSeconds: number) => void;
-    onComplete?: (contentId: string, totalSeconds: number) => void;
-    onMinuteTick?: (contentId: string, minutes: number) => void;
+    sessionKey: string;
+    estimatedTime?: number;
+    onTimeUpdate?: (elapsedSeconds: number) => void;
+    onMinuteTick?: (minutes: number) => void;
 }
 
 export interface TimerProps {
+    sessionKey: string;
     topicId: string;
     contentId: string;
     topicName: string;
     contentTitle: string;
-    estimatedTime: number;
-    initialElapsedTime?: number;
-    onTimeUpdate?: (contentId: string, elapsedSeconds: number) => void;
-    onComplete?: (contentId: string, totalSeconds: number) => void;
-    onCompleteWithConfirmation?: (contentId: string, totalSeconds: number, contentCompleted: boolean) => void;
-    onFinishContent?: (contentId: string, totalSeconds: number) => void;
-    onMinuteTick?: (contentId: string, minutes: number) => void;
-    onContinue?: (contentId: string) => void;
+    estimatedTime?: number;
+    onTimeUpdate?: (elapsedSeconds: number) => void;
+    onMinuteTick?: (minutes: number) => void;
+
+    onFinishContent?: (contentId: string, elapsedSecondsAtThatMoment: number) => void;
+
+    onCompleteBlock?: (sessionKey: string, totalSeconds: number) => void;
     className?: string;
 }
-
-export interface TimerState {
-    isRunning: boolean;
-    elapsedSeconds: number;
-    isCompleted: boolean;
-    showConfirmation: boolean;
-}
-
-export type TimerAction =
-    | { type: 'START' }
-    | { type: 'PAUSE' }
-    | { type: 'RESET' }
-    | { type: 'TICK' }
-    | { type: 'SET_ELAPSED'; payload: number }
-    | { type: 'SHOW_CONFIRMATION' }
-    | { type: 'HIDE_CONFIRMATION' };
 
 export interface ChecklistItem {
     id: string;
@@ -101,17 +82,16 @@ export interface StudyToolsProps {
 }
 
 export interface StudyWidgetProps {
+    sessionKey: string;
     topicId: string;
     contentId: string;
     topicName: string;
     contentTitle: string;
-    estimatedTime: number;
-    initialElapsedTime?: number;
-    onTimeUpdate?: (contentId: string, elapsedSeconds: number) => void;
-    onMinuteTick?: (contentId: string, minutes: number) => void;
-    onCompleteWithConfirmation?: (contentId: string, totalSeconds: number, contentCompleted: boolean) => void;
-    onFinishContent?: (contentId: string, totalSeconds: number) => void;
-    onContinue?: (contentId: string) => void;
+    estimatedTime?: number;
+    onTimeUpdate?: (elapsedSeconds: number) => void;
+    onMinuteTick?: (minutes: number) => void;
+    onFinishContent?: (contentId: string, elapsedSecondsAtThatMoment: number) => void;
+    onCompleteBlock?: (sessionKey: string, totalSeconds: number) => void;
     checklist?: ChecklistItem[];
     onUpdateChecklist?: (items: ChecklistItem[]) => void;
     questionLists?: QuestionList[];

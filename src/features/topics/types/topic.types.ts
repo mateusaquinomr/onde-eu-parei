@@ -19,7 +19,7 @@ export interface ChecklistItem {
 export interface ReviewHistoryItem {
     id: string;
     date: Date;
-    duration: number;
+    duration?: number;
     notes: string;
     rating?: 'easy' | 'medium' | 'hard';
 }

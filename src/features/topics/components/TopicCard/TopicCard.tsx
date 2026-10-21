@@ -78,7 +78,7 @@ export function TopicCard({ topic, onClick }: TopicCardProps) {
 
             <div
                 className={styles.colorBar}
-                style={{ backgroundColor: notebookColorMap[topic.notebookColor] }}
+                style={{ backgroundColor: `${notebookColorMap[topic.notebookColor]}80` }}
             >
                 <div className={styles.colorBarCircle} />
                 <div className={styles.colorBarCircle} />
@@ -102,7 +102,7 @@ export function TopicCard({ topic, onClick }: TopicCardProps) {
                 </Text>
                 <span
                     className={styles.badge}
-                    style={{ backgroundColor: difficultyColors[topic.difficulty] }}
+                    style={{ backgroundColor: `${difficultyColors[topic.difficulty]}80` }}
                 >
                     {difficultyLabels[topic.difficulty]}
                 </span>

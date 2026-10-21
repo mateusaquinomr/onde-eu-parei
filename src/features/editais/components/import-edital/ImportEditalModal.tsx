@@ -427,8 +427,7 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
                         <span className="material-icons">arrow_back</span>
                         Voltar
                     </Button>
-
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="ghost" onClick={handleClose}>
                         Cancelar
                     </Button>
 

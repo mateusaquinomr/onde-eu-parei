@@ -7,8 +7,11 @@ import { Select } from '@/shared/components/ui/Form/Select';
 import { EditableTitle } from '@/shared/components/ui/EditableTitle/EditableTitle';
 import { EditableMetadata } from '@/shared/components/ui/EditableMetadata/EditableMetadata';
 import { useTopics } from '../hooks/useTopics';
+import { useCycle } from '@/features/cycle/hooks/useCycle';
+import { studyTimerService } from '@/features/study/services/studyTimerService';
 import { ContentList } from '../components/ContentList/ContentList';
 import { CircularProgress } from '../components/CircularProgress/CircularProgress';
+import { CopyContentModal } from '../components/copy-content-modal/CopyContentModal';
 import { calculateNextReviewDate } from '@/features/reviews/services/reviewService';
 import type { Content, ImportanceLevel, NotebookColor, DifficultyLevel, ChecklistItem, QuestionList } from '../types/topic.types';
 import styles from './TopicDetailPage.module.css';
@@ -23,11 +26,13 @@ export function TopicDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { topics, loading, updateTopic, updateLastAccessed, deleteTopic } = useTopics();
+    const { currentCycle, decrementBlockMinutes, completeBlock } = useCycle();
     const topic = topics.find(t => t.id === id);
     const [showAddContent, setShowAddContent] = useState(false);
     const [newContentTitle, setNewContentTitle] = useState('');
     const [newContentImportance, setNewContentImportance] = useState<ImportanceLevel>('normal');
     const [showMenu, setShowMenu] = useState(false);
+    const [contentToCopy, setContentToCopy] = useState<Content | null>(null);
 
     useEffect(() => {
         if (id && topic) {
@@ -65,6 +70,20 @@ export function TopicDetailPage() {
         );
     }
 
+    const activeBlockForTopic = currentCycle?.blocks.find(
+        b => b.topicId === topic.id && !b.completed
+    ) || null;
+
+    const handleBlockMinuteTick = async (minutes: number) => {
+        if (!activeBlockForTopic) return;
+        await decrementBlockMinutes(activeBlockForTopic.id, minutes);
+    };
+
+    const handleBlockCompleteBlock = async (blockId: string) => {
+        await completeBlock(blockId);
+        studyTimerService.clearProgress(blockId);
+    };
+
     const completedContents = topic.contents.filter(c => c.completed).length;
     const totalContents = topic.contents.length;
     const progress = totalContents > 0
@@ -72,7 +91,7 @@ export function TopicDetailPage() {
         : 0;
 
     const handleGoBack = () => {
-        navigate('/topics');
+        navigate('/editais');
     };
 
     const handleDeleteTopic = async () => {
@@ -91,9 +110,7 @@ export function TopicDetailPage() {
             const completed = !c.completed;
 
             if (completed) {
-                // Agenda a 1ª revisão (ou a próxima, se o conteúdo já tinha
-                // histórico de revisões de uma vez em que foi desmarcado e
-                // concluído de novo).
+
                 return {
                     ...c,
                     completed: true,
@@ -127,6 +144,44 @@ export function TopicDetailPage() {
     const handleDeleteContent = (contentId: string) => {
         const updatedContents = topic.contents.filter(c => c.id !== contentId);
         updateTopic(topic.id, { contents: updatedContents });
+    };
+
+    const handleCopyToTopic = (content: Content) => {
+        setContentToCopy(content);
+    };
+
+
+    const handleConfirmCopy = async (destinationTopicId: string) => {
+        if (!contentToCopy) return;
+
+        const destinationTopic = topics.find(t => t.id === destinationTopicId);
+        if (!destinationTopic) return;
+
+        const newContent: Content = {
+            id: crypto.randomUUID(),
+            title: contentToCopy.title,
+            importance: contentToCopy.importance,
+            completed: false,
+            order: destinationTopic.contents.length,
+            createdAt: new Date(),
+            checklist: [],
+            studyData: {
+                totalTimeSpent: 0,
+                notes: contentToCopy.studyData?.notes || '',
+                startedAt: null,
+                completedAt: null,
+                lastReviewDate: null,
+                nextReviewDate: null,
+                reviewHistory: [],
+                questionLists: []
+            }
+        };
+
+        await updateTopic(destinationTopicId, {
+            contents: [...destinationTopic.contents, newContent]
+        });
+
+        setContentToCopy(null);
     };
 
     const handleReorderContents = (reorderedContents: Content[]) => {
@@ -457,11 +512,16 @@ export function TopicDetailPage() {
 
                     <ContentList
                         topicId={topic.id}
+                        topicName={topic.name}
                         contents={topic.contents}
                         isEditing={true}
                         onToggleComplete={handleToggleComplete}
                         onUpdateContent={handleUpdateContent}
                         onDeleteContent={handleDeleteContent}
+                        onCopyToTopic={handleCopyToTopic}
+                        activeBlock={activeBlockForTopic}
+                        onBlockMinuteTick={handleBlockMinuteTick}
+                        onBlockCompleteBlock={handleBlockCompleteBlock}
                         onReorder={handleReorderContents}
                         onUpdateChecklist={handleUpdateChecklist}
                         onUpdateNotes={handleUpdateNotes}
@@ -470,6 +530,15 @@ export function TopicDetailPage() {
                     />
                 </div>
             </div>
+
+            <CopyContentModal
+                isOpen={contentToCopy !== null}
+                onClose={() => setContentToCopy(null)}
+                content={contentToCopy}
+                topics={topics}
+                currentTopicId={topic.id}
+                onConfirm={handleConfirmCopy}
+            />
         </div>
     );
 }

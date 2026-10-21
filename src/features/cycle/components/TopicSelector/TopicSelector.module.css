@@ -11,29 +11,29 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
     border-radius: 6px;
-    background: white;
+    background: var(--surface-card);
     cursor: pointer;
     min-height: 40px;
 }
 
 .dropdownButton:hover {
-    border-color: #3b82f6;
+    border-color: var(--color-primary);
 }
 
 .dropdownButton.open {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-subtle);
 }
 
 .selectedText {
-    color: #1f2937;
+    color: var(--text-body-secondary) !important;
     font-size: 14px;
 }
 
 .arrow {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-size: 12px;
 }
 
@@ -43,10 +43,10 @@
     left: 0;
     right: 0;
     margin-top: 4px;
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: var(--surface-dropdown);
+    border: 1px solid var(--surface-border-muted);
     border-radius: 6px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-2);
     z-index: 1000;
     max-height: 400px;
     display: flex;
@@ -55,20 +55,22 @@
 
 .searchBox {
     padding: 12px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--surface-border-muted);
 }
 
 .searchInput {
     width: 100%;
     padding: 8px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
     border-radius: 4px;
     font-size: 14px;
+    background: var(--input-bg);
+    color: var(--text-body-secondary);
 }
 
 .searchInput:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: var(--input-border-focus);
 }
 
 .optionsList {
@@ -87,7 +89,7 @@
 }
 
 .option:hover {
-    background: #f3f4f6;
+    background: var(--surface-dropdown-hover);
 }
 
 .option input[type="checkbox"] {
@@ -96,11 +98,11 @@
 
 .optionLabel {
     font-size: 14px;
-    color: #1f2937;
+    color: var(--text-body-secondary);
 }
 
 .topicCount {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-size: 12px;
     margin-left: 4px;
 }
@@ -108,52 +110,10 @@
 .noResults {
     padding: 16px;
     text-align: center;
-    color: #6b7280;
+    color: var(--text-body-secondary);
 }
 
 .hint {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-style: italic;
-}
-
-@media (prefers-color-scheme: dark) {
-    .dropdownButton {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .selectedText {
-        color: #e5e7eb;
-    }
-
-    .dropdownMenu {
-        background: #1f2937;
-        border-color: #374151;
-    }
-
-    .searchBox {
-        border-bottom-color: #374151;
-    }
-
-    .searchInput {
-        background: #374151;
-        border-color: #4b5563;
-        color: #e5e7eb;
-    }
-
-    .option:hover {
-        background: #374151;
-    }
-
-    .optionLabel {
-        color: #e5e7eb;
-    }
-
-    .topicCount {
-        color: #9ca3af;
-    }
-
-    .hint {
-        color: #9ca3af;
-    }
 }

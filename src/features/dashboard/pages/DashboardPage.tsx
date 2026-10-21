@@ -29,17 +29,15 @@ export const DashboardPage = () => {
     const { currentCycle, loading: cycleLoading, completeBlock, decrementBlockMinutes } = useCycle();
 
     const [activeBlockId, setActiveBlockId] = useState<string | undefined>();
+
     const [currentContent, setCurrentContent] = useState<{
         contentId: string;
         contentTitle: string;
-        estimatedTime: number;
-        initialElapsedTime: number;
         checklist?: ChecklistItem[];
         questionLists?: QuestionList[];
         notes?: Note[];
     } | null>(null);
 
-    const isProcessingMinute = useRef(false);
     const hasTopics = topics.length > 0;
     const hasCycle = currentCycle !== null && currentCycle.blocks.length > 0;
     const isLoading = topicsLoading || cycleLoading;
@@ -71,7 +69,6 @@ export const DashboardPage = () => {
             topicName: block.topicName,
             position: block.position,
             minutes: block.minutes,
-
             originalMinutes: block.originalMinutes ?? block.minutes,
             completed: block.completed || false,
             currentContent: block.currentContent || getContentTitle(block.topicId),
@@ -109,8 +106,6 @@ export const DashboardPage = () => {
             setCurrentContent({
                 contentId: content.id,
                 contentTitle: content.title,
-                estimatedTime: activeBlock.originalMinutes ?? activeBlock.minutes,
-                initialElapsedTime: 0,
                 checklist: content.checklist,
                 questionLists: content.studyData?.questionLists,
                 notes: parseNotes(content.studyData?.notes),
@@ -185,50 +180,46 @@ export const DashboardPage = () => {
         }
     };
 
-    const handleTimeUpdate = async (contentId: string, elapsedSeconds: number) => {
-
+    const handleTimeUpdate = (elapsedSeconds: number) => {
         return;
     };
 
-    const handleMinuteTick = async (contentId: string, minutes: number) => {
+    const isProcessingMinute = useRef(false);
+
+    const handleMinuteTick = async (minutes: number) => {
         if (!activeBlockId) return;
 
-        if (isProcessingMinute.current) {
-            console.log('Já processando um minuto, ignorando...');
-            return;
-        }
+        if (isProcessingMinute.current) return;
         isProcessingMinute.current = true;
 
         try {
-
-            const minutesToProcess = minutes;
-            console.log(`Processando ${minutesToProcess} minuto(s) estudado(s)`);
-
-            await decrementBlockMinutes(activeBlockId, minutesToProcess);
+            await decrementBlockMinutes(activeBlockId, minutes);
 
             const activeBlock = cycleBlocks.find(block => block.id === activeBlockId);
-
-
             const topic = topics.find(t => t.id === activeBlock?.topicId);
-            if (topic) {
-                const content = topic.contents.find(c => c.id === contentId);
+
+            if (topic && currentContent) {
+                const content = topic.contents.find(c => c.id === currentContent.contentId);
                 if (content) {
                     const currentTime = content.studyData?.totalTimeSpent || 0;
                     const updatedContents = topic.contents.map(c =>
-                        c.id === contentId
+                        c.id === currentContent.contentId
                             ? {
                                 ...c,
                                 studyData: {
                                     ...c.studyData,
-                                    totalTimeSpent: currentTime + minutesToProcess,
+                                    totalTimeSpent: currentTime + minutes,
                                     startedAt: c.studyData?.startedAt || new Date()
                                 }
                             }
                             : c
                     );
                     await updateTopic(topic.id, { contents: updatedContents });
-                    await addStudyMinutes(topic.id, minutesToProcess);
                 }
+            }
+
+            if (topic) {
+                await addStudyMinutes(topic.id, minutes);
             }
         } catch (error) {
             console.error('Erro no handleMinuteTick:', error);
@@ -237,56 +228,7 @@ export const DashboardPage = () => {
         }
     };
 
-    const handleCompleteWithConfirmation = async (contentId: string, totalSeconds: number, contentCompleted: boolean) => {
-        if (!activeBlockId) return;
-
-        const activeBlock = cycleBlocks.find(block => block.id === activeBlockId);
-        if (!activeBlock) return;
-
-        const topic = topics.find(t => t.id === activeBlock.topicId);
-        if (topic) {
-            if (contentCompleted) {
-                const roundedSeconds = Math.floor(totalSeconds);
-                const completedAt = new Date();
-                const updatedContents = topic.contents.map(c =>
-                    c.id === contentId
-                        ? {
-                            ...c,
-                            completed: true,
-                            studyData: {
-                                ...c.studyData,
-                                completedAt,
-                                totalTimeSpent: roundedSeconds / 60,
-                                nextReviewDate: calculateNextReviewDate(completedAt, c.studyData?.reviewHistory)
-                            }
-                        }
-                        : c
-                );
-                await updateTopic(topic.id, { contents: updatedContents });
-                studyTimerService.clearProgress(contentId);
-            }
-
-            await completeBlock(activeBlockId);
-
-            const currentBlockIndex = cycleBlocks.findIndex(b => b.id === activeBlockId);
-            const nextBlock = cycleBlocks.find((b, idx) => idx > currentBlockIndex && !b.completed);
-
-            if (nextBlock) {
-                setActiveBlockId(nextBlock.id);
-            } else {
-                const firstPendingBlock = cycleBlocks.find(b => !b.completed);
-                if (firstPendingBlock) {
-                    setActiveBlockId(firstPendingBlock.id);
-                } else {
-                    setActiveBlockId(undefined);
-                    setCurrentContent(null);
-                    alert(`Parabéns! Você completou todos os blocos do ciclo!`);
-                }
-            }
-        }
-    };
-
-    const handleFinishContent = async (contentId: string, totalSeconds: number) => {
+    const handleFinishContent = async (contentId: string) => {
         if (!activeBlockId) return;
 
         const activeBlock = cycleBlocks.find(block => block.id === activeBlockId);
@@ -295,7 +237,6 @@ export const DashboardPage = () => {
         const topic = topics.find(t => t.id === activeBlock.topicId);
         if (!topic) return;
 
-        const roundedSeconds = Math.floor(totalSeconds);
         const completedAt = new Date();
         const updatedContents = topic.contents.map(c =>
             c.id === contentId
@@ -305,17 +246,35 @@ export const DashboardPage = () => {
                     studyData: {
                         ...c.studyData,
                         completedAt,
-                        totalTimeSpent: roundedSeconds / 60,
                         nextReviewDate: calculateNextReviewDate(completedAt, c.studyData?.reviewHistory)
                     }
                 }
                 : c
         );
         await updateTopic(topic.id, { contents: updatedContents });
-        studyTimerService.clearProgress(contentId);
     };
 
-    const handleCompleteReview = async (topicId: string, contentId: string, durationMinutes: number) => {
+    const handleCompleteBlock = async (blockId: string) => {
+        await completeBlock(blockId);
+        studyTimerService.clearProgress(blockId);
+
+        const currentBlockIndex = cycleBlocks.findIndex(b => b.id === blockId);
+        const nextBlock = cycleBlocks.find((b, idx) => idx > currentBlockIndex && !b.completed);
+
+        if (nextBlock) {
+            setActiveBlockId(nextBlock.id);
+        } else {
+            const firstPendingBlock = cycleBlocks.find(b => !b.completed && b.id !== blockId);
+            if (firstPendingBlock) {
+                setActiveBlockId(firstPendingBlock.id);
+            } else {
+                setActiveBlockId(undefined);
+                setCurrentContent(null);
+            }
+        }
+    };
+
+    const handleCompleteReview = async (topicId: string, contentId: string) => {
         const topic = topics.find(t => t.id === topicId);
         if (!topic) return;
 
@@ -326,7 +285,7 @@ export const DashboardPage = () => {
         const newHistoryEntry = {
             id: crypto.randomUUID(),
             date: now,
-            duration: durationMinutes,
+            duration: 0,
             notes: ''
         };
         const updatedHistory = [...(content.studyData?.reviewHistory || []), newHistoryEntry];
@@ -347,27 +306,15 @@ export const DashboardPage = () => {
         await updateTopic(topic.id, { contents: updatedContents });
     };
 
-    const handleContinue = async (contentId: string) => {
-        console.log('Continuando estudo do conteúdo:', contentId);
-    };
-
     const activeBlock = cycleBlocks.find(block => block.id === activeBlockId);
 
     if (isLoading) {
         return (
-            <div className={styles.dashboard}>
-                <div className={styles.centerColumnFull}>
-                    <div className="flex items-center justify-center h-64">
-                        <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                            <p className="mt-4 text-gray-600">Carregando seu ciclo de estudos...</p>
-                        </div>
-                    </div>
-                </div>
+            <div className={styles.container}>
+                <div className={styles.loading}>Carregando...</div>
             </div>
         );
     }
-
 
     if (!hasTopics && !hasCycle) {
         return (
@@ -479,20 +426,20 @@ export const DashboardPage = () => {
 
             <div className={styles.centerColumn}>
                 {activeBlock && currentContent ? (
-                    <Widget title="Estude agora">
+                    <Widget>
+                        {/* <Widget title="Estude agora"></Widget> */}
                         <StudyWidget
                             key={activeBlockId}
+                            sessionKey={activeBlockId!}
                             topicId={activeBlock.topicId}
                             contentId={currentContent.contentId}
                             topicName={activeBlock.topicName}
                             contentTitle={currentContent.contentTitle}
-                            estimatedTime={currentContent.estimatedTime}
-                            initialElapsedTime={currentContent.initialElapsedTime}
+                            estimatedTime={activeBlock.originalMinutes ?? activeBlock.minutes}
                             onTimeUpdate={handleTimeUpdate}
                             onMinuteTick={handleMinuteTick}
-                            onCompleteWithConfirmation={handleCompleteWithConfirmation}
-                            onFinishContent={handleFinishContent}
-                            onContinue={handleContinue}
+                            onFinishContent={(contentId) => handleFinishContent(contentId)}
+                            onCompleteBlock={handleCompleteBlock}
                             checklist={currentContent.checklist}
                             onUpdateChecklist={handleUpdateChecklist}
                             questionLists={currentContent.questionLists}

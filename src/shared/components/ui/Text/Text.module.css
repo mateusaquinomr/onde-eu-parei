@@ -20,8 +20,8 @@
 
 .label {
     font-size: var(--font-size-md);
-    font-weight: var(--font-weight-medium);
-    color: var(--text-label-form);
+    font-weight: 700;
+    color: var(--text-body-secondary);
 }
 
 
@@ -33,7 +33,7 @@
 .body {
     font-size: var(--font-size-md);
     line-height: var(--line-lg);
-    color: var(--text-body);
+    color: var(--text-body-secondary);
 }
 
 .caption {

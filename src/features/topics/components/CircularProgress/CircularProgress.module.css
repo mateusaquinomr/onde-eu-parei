@@ -9,11 +9,11 @@
 }
 
 .background {
-    stroke: #e5e7eb;
+    stroke: var(--surface-border-muted);
 }
 
 .progress {
-    stroke: #3b82f6;
+    stroke: var(--color-primary);
     transition: stroke-dashoffset 0.3s ease;
 }
 
@@ -35,22 +35,12 @@
 .percentage {
     font-size: 24px;
     font-weight: 600;
-    color: #3b82f6;
+    color: var(--color-primary);
     line-height: 1.2;
 }
 
 .counter {
     font-size: 12px;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     line-height: 1.2;
-}
-
-@media (prefers-color-scheme: dark) {
-    .percentage {
-        color: #60a5fa;
-    }
-
-    .counter {
-        color: #9ca3af;
-    }
 }

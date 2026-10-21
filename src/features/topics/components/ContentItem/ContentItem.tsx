@@ -1,16 +1,23 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Text } from '@/shared/components/ui/Text/Text';
 import { Button } from '@/shared/components/ui/Button/Button';
 import { Input } from '@/shared/components/ui/Form/Input';
 import { Select } from '@/shared/components/ui/Form/Select';
 import { DragHandle } from '../DragHandle/DragHandle';
-import { StudyTools } from '@/features/study/components/study-tools/StudyTools';
 import type { Content, ImportanceLevel, ChecklistItem, QuestionList } from '../../types/topic.types';
 import styles from './ContentItem.module.css';
+
+interface ActiveBlockInfo {
+    id: string;
+    minutes: number;
+    originalMinutes?: number;
+}
 
 interface ContentItemProps {
     content: Content;
     topicId: string;
+    topicName: string;
     index: number;
     isEditing: boolean;
     onEdit: () => void;
@@ -18,8 +25,13 @@ interface ContentItemProps {
     onCancel: () => void;
     onDelete: () => void;
     onToggleComplete: () => void;
-    onUpdateChecklist: (contentId: string, items: ChecklistItem[]) => void;
-    onUpdateNotes: (contentId: string, notes: string) => void;
+    onCopyToTopic?: (content: Content) => void;
+
+    activeBlock?: ActiveBlockInfo | null;
+    onBlockMinuteTick?: (minutes: number) => void;
+    onBlockCompleteBlock?: (blockId: string) => void;
+    onUpdateChecklist?: (contentId: string, items: ChecklistItem[]) => void;
+    onUpdateNotes?: (contentId: string, notes: string) => void;
     onUpdateQuestions?: (contentId: string, lists: QuestionList[]) => void;
     onCompleteReview?: (contentId: string, durationMinutes: number) => void;
     dragHandleProps?: any;
@@ -45,7 +57,6 @@ const importanceLabels = {
 
 export function ContentItem({
     content,
-    topicId,
     index,
     isEditing,
     onEdit,
@@ -53,9 +64,7 @@ export function ContentItem({
     onCancel,
     onDelete,
     onToggleComplete,
-    onUpdateChecklist,
-    onUpdateNotes,
-    onUpdateQuestions,
+    onCopyToTopic,
     onCompleteReview,
     dragHandleProps
 }: ContentItemProps) {
@@ -64,6 +73,39 @@ export function ContentItem({
     const [isExpanded, setIsExpanded] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [reviewDuration, setReviewDuration] = useState('');
+
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
+    const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null);
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const updatePosition = () => {
+            const rect = menuButtonRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            setMenuPosition({
+                top: rect.bottom + window.scrollY + 4,
+                left: rect.right + window.scrollX - 200
+            });
+        };
+
+        updatePosition();
+        window.addEventListener('scroll', updatePosition, true);
+        window.addEventListener('resize', updatePosition);
+
+        const handleClickOutside = (e: MouseEvent) => {
+            if (menuButtonRef.current && !menuButtonRef.current.contains(e.target as Node)) {
+                setShowMenu(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            window.removeEventListener('scroll', updatePosition, true);
+            window.removeEventListener('resize', updatePosition);
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showMenu]);
 
     const handleCompleteReview = () => {
         const duration = reviewDuration ? Math.max(0, Math.floor(Number(reviewDuration))) : 0;
@@ -91,6 +133,11 @@ export function ContentItem({
     const handleEdit = () => {
         setShowMenu(false);
         onEdit();
+    };
+
+    const handleCopy = () => {
+        setShowMenu(false);
+        onCopyToTopic?.(content);
     };
 
     const handleExpandClick = () => {
@@ -198,12 +245,6 @@ export function ContentItem({
                                 {formatTime(content.studyData.totalTimeSpent)}
                             </span>
                         )}
-                        {content.checklist && content.checklist.length > 0 && (
-                            <span className={styles.stat}>
-                                <span className="material-icons">checklist</span>
-                                {content.checklist.filter(i => i.completed).length}/{content.checklist.length}
-                            </span>
-                        )}
                     </div>
 
                     <div className={styles.actionsGroup}>
@@ -219,6 +260,7 @@ export function ContentItem({
 
                         <div className={styles.menuContainer}>
                             <button
+                                ref={menuButtonRef}
                                 className={styles.menuBtn}
                                 onClick={() => setShowMenu(!showMenu)}
                                 aria-label="Opções"
@@ -226,17 +268,27 @@ export function ContentItem({
                                 <span className="material-icons">more_vert</span>
                             </button>
 
-                            {showMenu && (
-                                <div className={styles.menuDropdown}>
+                            {showMenu && menuPosition && createPortal(
+                                <div
+                                    className={styles.menuDropdown}
+                                    style={{ position: 'absolute', top: menuPosition.top, left: menuPosition.left }}
+                                >
                                     <button className={styles.menuItem} onClick={handleEdit}>
                                         <span className="material-icons">edit</span>
                                         Editar
                                     </button>
+                                    {onCopyToTopic && (
+                                        <button className={styles.menuItem} onClick={handleCopy}>
+                                            <span className="material-icons">content_copy</span>
+                                            Copiar para outro tópico
+                                        </button>
+                                    )}
                                     <button className={`${styles.menuItem} ${styles.deleteItem}`} onClick={handleDelete}>
                                         <span className="material-icons">delete</span>
                                         Excluir
                                     </button>
-                                </div>
+                                </div>,
+                                document.body
                             )}
                         </div>
                     </div>
@@ -288,14 +340,7 @@ export function ContentItem({
                             )}
                             {content.studyData?.nextReviewDate && onCompleteReview && (
                                 <div className={styles.reviewActionRow}>
-                                    <input
-                                        className={styles.reviewDurationInput}
-                                        type="number"
-                                        min={0}
-                                        placeholder="min"
-                                        value={reviewDuration}
-                                        onChange={(e) => setReviewDuration(e.target.value)}
-                                    />
+
                                     <button
                                         className={styles.reviewCompleteButton}
                                         onClick={handleCompleteReview}
@@ -325,15 +370,6 @@ export function ContentItem({
                             )}
                         </div>
                     </div>
-
-                    <StudyTools
-                        topicId={topicId}
-                        contentId={content.id}
-                        checklist={content.checklist}
-                        onUpdateChecklist={(items) => onUpdateChecklist(content.id, items)}
-                        questionLists={content.studyData?.questionLists}
-                        onUpdateQuestions={(lists) => onUpdateQuestions?.(content.id, lists)}
-                    />
                 </div>
             )}
         </div>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Text } from '@/shared/components/ui/Text/Text';
 import { Button } from '@/shared/components/ui/Button/Button';
 import { useTopics } from '../../../topics/hooks/useTopics';
@@ -28,8 +29,31 @@ export function CyclePage() {
         updateBlocks
     } = useCycle();
 
+    const [showDiscardConfirm, setShowDiscardConfirm] = useState(false);
+
+    const hasProgress = Boolean(currentCycle?.blocks.some(b => b.completed));
+
+    const handleReconfigureRequest = () => {
+        if (currentCycle && hasProgress) {
+            setShowDiscardConfirm(true);
+        } else {
+            openConfigModal();
+        }
+    };
+
+    const handleConfirmDiscard = () => {
+        setShowDiscardConfirm(false);
+        openConfigModal();
+    };
+
+    const handleCancelDiscard = () => {
+        setShowDiscardConfirm(false);
+    };
+
     if (loading) {
-        return <div className={styles.loading}>Carregando...</div>;
+        return <div className={styles.container}>
+            <div className={styles.loading}>Carregando...</div>
+        </div>
     }
 
     return (
@@ -51,7 +75,7 @@ export function CyclePage() {
                         <ConfigCard
                             cycle={currentCycle}
                             topics={topics}
-                            onReconfigure={openConfigModal}
+                            onReconfigure={handleReconfigureRequest}
                         />
                     )}
                 </div>
@@ -60,7 +84,7 @@ export function CyclePage() {
                     {currentCycle ? (
                         <CyclePanel
                             cycle={currentCycle}
-                            onReconfigure={openConfigModal}
+                            onReconfigure={handleReconfigureRequest}
                             onSaveBlocks={updateBlocks}
                         />
                     ) : (
@@ -96,6 +120,29 @@ export function CyclePage() {
                 onSelectTopics={selectTopics}
                 onGenerate={generateCycle}
             />
+
+            {showDiscardConfirm && (
+                <div className={styles.confirmOverlay} onClick={handleCancelDiscard}>
+                    <div className={styles.confirmModal} onClick={(e) => e.stopPropagation()}>
+                        <h3 className={styles.confirmTitle}>Reconfigurar ciclo em andamento?</h3>
+                        <p className={styles.confirmText}>
+                            Esse ciclo já tem blocos concluídos. Reconfigurar cria um ciclo
+                            novo do zero e o progresso atual não poderá ser retomado.
+                        </p>
+                        <div className={styles.confirmButtons}>
+                            <Button variant="ghost" onClick={handleCancelDiscard}>
+                                Cancelar
+                            </Button>
+                            <button
+                                className={styles.confirmDangerButton}
+                                onClick={handleConfirmDiscard}
+                            >
+                                Descartar e começar do zero
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

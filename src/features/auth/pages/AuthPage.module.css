@@ -7,12 +7,12 @@
 }
 
 .card {
-    background: var(--color-bg-primary, #ffffff);
+    background: var(--surface-card);
     border-radius: 24px;
     padding: 2rem;
     width: 100%;
     max-width: 480px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-4);
 }
 
 .header {
@@ -24,10 +24,11 @@
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
     font-weight: 700;
+    color: var(--color-primary);
 }
 
 .subtitle {
-    color: var(--color-text-secondary, #6b7280);
+    color: var(--text-body-secondary);
     font-size: 0.875rem;
 }
 
@@ -42,7 +43,7 @@
 .linkButton {
     background: none;
     border: none;
-    color: #3b82f6;
+    color: var(--text-link);
     cursor: pointer;
     font-size: 0.875rem;
     transition: all 0.2s ease;
@@ -50,7 +51,7 @@
 
 .linkButton:hover {
     text-decoration: underline;
-    color: #2563eb;
+    color: var(--color-primary-hover);
 }
 
 @media (max-width: 640px) {
@@ -60,23 +61,5 @@
 
     .title {
         font-size: 1.5rem;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: var(--color-bg-secondary, #1f2937);
-    }
-
-    .subtitle {
-        color: #9ca3af;
-    }
-
-    .linkButton {
-        color: #60a5fa;
-    }
-
-    .linkButton:hover {
-        color: #93c5fd;
     }
 }

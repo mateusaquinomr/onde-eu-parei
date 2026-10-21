@@ -11,7 +11,7 @@
 }
 
 .errorText {
-    color: #ef4444;
+    color: var(--text-error);
     font-size: 0.75rem;
     margin-top: 0.25rem;
 }
@@ -20,11 +20,4 @@
     display: flex;
     justify-content: center;
     width: 100%;
-}
-
-
-@media (prefers-color-scheme: dark) {
-    .errorText {
-        color: #f87171;
-    }
 }

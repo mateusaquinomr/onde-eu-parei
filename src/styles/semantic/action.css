@@ -1,67 +1,34 @@
 :root {
 
+    /* ACTION - PRIMARY (fundo colorido) */
     --action-primary-bg: var(--color-primary);
     --action-primary-bg-hover: var(--color-primary-hover);
     --action-primary-bg-active: var(--color-primary-active);
     --action-primary-bg-disabled: var(--color-gray-200);
-    --action-primary-text: var(--color-text-inverse);
-    --action-primary-text-hover: var(--color-text-inverse);
-    --action-primary-text-active: var(--color-text-inverse);
+
+    --action-primary-text: var(--color-gray-600);
+    --action-primary-text-hover: var(--text-inverse);
+    --action-primary-text-active: var(--text-inverse);
     --action-primary-text-disabled: var(--color-gray-400);
+
     --action-primary-border: transparent;
     --action-primary-border-hover: transparent;
     --action-primary-border-active: transparent;
     --action-primary-border-disabled: transparent;
 
-    --action-secondary-bg: var(--color-secondary-subtle);
-    --action-secondary-bg-hover: var(--color-secondary);
-    --action-secondary-bg-active: var(--color-secondary-hover);
-    --action-secondary-bg-disabled: var(--color-gray-100);
-    --action-secondary-text: var(--color-secondary);
-    --action-secondary-text-hover: var(--color-text-inverse);
-    --action-secondary-text-active: var(--color-text-inverse);
-    --action-secondary-text-disabled: var(--color-gray-400);
-    --action-secondary-border: var(--color-secondary);
-    --action-secondary-border-hover: var(--color-secondary);
-    --action-secondary-border-active: var(--color-secondary-hover);
-    --action-secondary-border-disabled: var(--color-gray-300);
+    /* ACTION - OUTLINE (fundo surface, borda colorida) */
+    --action-outline-bg: var(--surface-active);
+    --action-outline-bg-hover: var(--surface-overlay-light);
+    --action-outline-bg-active: var(--color-primary);
+    --action-outline-bg-disabled: transparent;
 
-    --action-tertiary-bg: transparent;
-    --action-tertiary-bg-hover: var(--color-accent-subtle);
-    --action-tertiary-bg-active: var(--color-accent);
-    --action-tertiary-bg-disabled: transparent;
-    --action-tertiary-text: var(--color-accent);
-    --action-tertiary-text-hover: var(--color-accent-hover);
-    --action-tertiary-text-active: var(--color-text-inverse);
-    --action-tertiary-text-disabled: var(--color-gray-400);
-    --action-tertiary-border: var(--color-accent);
-    --action-tertiary-border-hover: var(--color-accent-hover);
-    --action-tertiary-border-active: var(--color-accent-hover);
-    --action-tertiary-border-disabled: var(--color-gray-300);
+    --action-outline-text: var(--color-primary);
+    --action-outline-text-hover: var(--color-primary-hover);
+    --action-outline-text-active: var(--text-inverse);
+    --action-outline-text-disabled: var(--color-gray-400);
 
-    --action-danger-bg: var(--color-error);
-    --action-danger-bg-hover: var(--color-error-hover);
-    --action-danger-bg-active: var(--color-red-700);
-    --action-danger-bg-disabled: var(--color-gray-200);
-    --action-danger-text: var(--color-text-inverse);
-    --action-danger-text-hover: var(--color-text-inverse);
-    --action-danger-text-active: var(--color-text-inverse);
-    --action-danger-text-disabled: var(--color-gray-400);
-    --action-danger-border: transparent;
-    --action-danger-border-hover: transparent;
-    --action-danger-border-active: transparent;
-    --action-danger-border-disabled: transparent;
-
-    --action-ghost-bg: transparent;
-    --action-ghost-bg-hover: var(--color-primary-subtle);
-    --action-ghost-bg-active: var(--color-primary);
-    --action-ghost-bg-disabled: transparent;
-    --action-ghost-text: var(--color-primary);
-    --action-ghost-text-hover: var(--color-primary-hover);
-    --action-ghost-text-active: var(--color-text-inverse);
-    --action-ghost-text-disabled: var(--color-gray-400);
-    --action-ghost-border: transparent;
-    --action-ghost-border-hover: transparent;
-    --action-ghost-border-active: transparent;
-    --action-ghost-border-disabled: transparent;
+    --action-outline-border: var(--color-primary);
+    --action-outline-border-hover: var(--color-primary-hover);
+    --action-outline-border-active: var(--color-primary);
+    --action-outline-border-disabled: var(--color-gray-300);
 }

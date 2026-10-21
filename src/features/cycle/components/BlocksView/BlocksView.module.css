@@ -13,20 +13,20 @@
     flex-direction: column;
     gap: 8px;
     padding: 16px;
-    background: #f9fafb;
+    background: var(--surface-card);
     border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--surface-border-muted);
     transition: all 0.2s;
 }
 
 .block:hover {
-    border-color: #d1d5db;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-color: var(--surface-border);
+    box-shadow: var(--surface-shadow-1);
 }
 
 .block.completed {
-    background: #f0fdf4;
-    border-color: #86efac;
+    background: var(--color-success-subtle);
+    border-color: var(--color-success);
 }
 
 .blockHeader {
@@ -38,8 +38,8 @@
 .position {
     font-size: 12px;
     font-weight: 600;
-    color: #6b7280;
-    background: #e5e7eb;
+    color: var(--text-body-secondary);
+    background: var(--surface-border-muted);
     padding: 2px 8px;
     border-radius: 12px;
 }
@@ -48,56 +48,31 @@
     flex: 1;
     margin-left: 12px;
     font-weight: 500;
-    color: #1f2937;
+    color: var(--text-body-secondary);
 }
 
 .minutes {
     font-weight: 600;
-    color: #6b7280;
+    color: var(--text-body-secondary);
     font-size: 12px;
 }
 
 
 .completedBadge {
     font-size: 12px;
-    color: #10b981;
+    color: var(--color-success);
     text-align: right;
 }
 
 .progressBar {
     height: 4px;
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
     border-radius: 2px;
     overflow: hidden;
 }
 
 .progressFill {
     height: 100%;
-    background: #3b82f6;
+    background: var(--color-primary);
     transition: width 0.3s ease;
-}
-
-@media (prefers-color-scheme: dark) {
-    .block {
-        background: #374151;
-        border-color: #4b5563;
-    }
-
-    .block.completed {
-        background: #064e3b;
-        border-color: #10b981;
-    }
-
-    .position {
-        background: #4b5563;
-        color: #e5e7eb;
-    }
-
-    .topicName {
-        color: #e5e7eb;
-    }
-
-    .progressBar {
-        background: #4b5563;
-    }
 }

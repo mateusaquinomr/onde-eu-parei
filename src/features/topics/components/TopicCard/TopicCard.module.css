@@ -3,10 +3,10 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.2s, box-shadow 0.2s;
-    background: rgb(250, 250, 250);
+    background: var(--surface-panel);
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--surface-shadow-1);
     cursor: pointer;
     gap: 16px;
     position: relative;
@@ -28,14 +28,14 @@
 .colorBarCircle {
     width: 4px;
     height: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
+    /* background-color: rgba(255, 255, 255, 0.9); */
     border-radius: 10px;
     flex-shrink: 0;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--surface-shadow-2);
 }
 
 .header {
@@ -50,7 +50,9 @@
     margin: 0;
     flex: 1;
     word-break: break-word;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--text-heading);
 }
 
 .badge {
@@ -58,7 +60,7 @@
     border-radius: 20px;
     font-size: 11px;
     font-weight: 500;
-    color: white;
+    color: var(--text-inverse);
     white-space: nowrap;
 }
 
@@ -71,15 +73,15 @@
 
 .tag {
     padding: 3px 10px;
-    background: #f3f4f6;
+    background: var(--surface-hover);
     border-radius: 20px;
     font-size: 11px;
-    color: #4b5563;
+    color: var(--text-body);
     transition: background 0.2s;
 }
 
 .tag:hover {
-    background: #e5e7eb;
+    background: var(--surface-border-muted);
 }
 
 .progressContainer {
@@ -110,17 +112,17 @@
 .statDivider {
     width: 1px;
     height: 24px;
-    background-color: #e5e7eb;
+    background-color: var(--surface-border-muted);
 }
 
 .statLabel {
-    color: #6b7280;
+    color: var(--text-body-secondary);
     letter-spacing: 0.3px;
 }
 
 .statValue {
     font-weight: 600;
-    color: #1f2937;
+    color: var(--color-primary);
     font-size: 13px;
 }
 
@@ -138,7 +140,7 @@
 }
 
 .contentsLabel {
-    color: #4b5563;
+    color: var(--text-body-secondary);
     font-size: 12px;
     font-weight: 500;
 }
@@ -154,13 +156,14 @@
     align-items: center;
     gap: 8px;
     padding: 6px 8px;
-    background: #f9fafb;
+    background: var(--surface-panel);
+
     border-radius: 6px;
     transition: background 0.2s;
 }
 
 .contentItem:hover {
-    background: #f3f4f6;
+    background: var(--surface-border-muted);
 }
 
 .contentStatus {
@@ -179,13 +182,13 @@
 }
 
 .contentStatus.completed {
-    color: #10b981;
+    color: var(--color-success);
 }
 
 .contentTitle {
     flex: 1;
     font-size: 12px;
-    color: #1f2937;
+    color: var(--text-body-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -193,11 +196,11 @@
 }
 
 .emptyContents {
-    color: #9ca3af;
+    color: var(--text-muted);
     font-style: italic;
     padding: 8px;
     text-align: center;
-    background: #f9fafb;
+    background: var(--surface-panel);
     border-radius: 6px;
 }
 
@@ -210,7 +213,7 @@
 }
 
 .viewAllText {
-    color: #3b82f6;
+    color: var(--color-primary);
     font-weight: 500;
     cursor: pointer;
     font-size: 11px;
@@ -226,7 +229,7 @@
 }
 
 .viewAllText:hover {
-    color: #2563eb;
+    color: var(--color-primary-hover);
 }
 
 .viewAllText:hover .arrow {
@@ -237,70 +240,6 @@
     display: flex;
     align-items: center;
     gap: 4px;
-}
-
-@media (prefers-color-scheme: dark) {
-    .card {
-        background: #1f2937;
-    }
-
-    .tag {
-        background: #374151;
-        color: #e5e7eb;
-    }
-
-    .tag:hover {
-        background: #4b5563;
-    }
-
-    .statLabel {
-        color: #9ca3af;
-    }
-
-    .statValue {
-        color: #f3f4f6;
-    }
-
-    .statDivider {
-        background-color: #374151;
-    }
-
-    .contentsLabel {
-        color: #9ca3af;
-    }
-
-    .contentItem {
-        background: #374151;
-    }
-
-    .contentItem:hover {
-        background: #4b5563;
-    }
-
-    .contentTitle {
-        color: #e5e7eb;
-    }
-
-    .emptyContents {
-        background: #374151;
-        color: #9ca3af;
-    }
-
-    .viewAllContainer {
-        border-top-color: #374151;
-    }
-
-    .viewAllText {
-        color: #60a5fa;
-    }
-
-    .viewAllText:hover {
-        color: #93c5fd;
-    }
-
-    .colorBarCircle {
-        background-color: rgba(255, 255, 255, 0.8);
-    }
 }
 
 @media (max-width: 768px) {

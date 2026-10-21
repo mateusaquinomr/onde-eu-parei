@@ -14,10 +14,44 @@
 
 .label {
     min-width: 120px;
+    color: var(--input-label);
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .control {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    flex: 1;
+}
+
+.helper {
+    color: var(--input-helper);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.error {
+    color: var(--input-error);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.control :global(.error) {
+    border-color: var(--input-border-error);
+}
+
+.control :global(.error):focus {
+    border-color: var(--input-border-error);
+    box-shadow: 0 0 0 3px var(--color-error-subtle);
+}
+
+.control :global(.success) {
+    border-color: var(--input-border-success);
+}
+
+.control :global(.success):focus {
+    border-color: var(--input-border-success);
+    box-shadow: 0 0 0 3px var(--color-success-subtle);
 }

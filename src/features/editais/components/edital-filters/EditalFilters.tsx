@@ -1,19 +1,19 @@
-import { useEditais } from '../../hooks/useEditais';
-import { useTopics } from '@/features/topics/hooks/useTopics';
+import type { Edital } from '../../types/edital.types';
 import styles from './EditalFilters.module.css';
 
+interface Topic {
+    editalId?: string;
+}
+
 interface EditalFiltersProps {
+    editais: Edital[];
+    topics: Topic[];
+    loading: boolean;
     activeFilter: string | null;
     onFilterChange: (editalId: string | null) => void;
 }
 
-export function EditalFilters({ activeFilter, onFilterChange }: EditalFiltersProps) {
-    const { editais, loading } = useEditais();
-    const { topics } = useTopics();
-
-    console.log('🔍 EditalFilters - editais:', editais);
-    console.log('🔍 EditalFilters - topics:', topics);
-
+export function EditalFilters({ editais, topics, loading, activeFilter, onFilterChange }: EditalFiltersProps) {
     const getTopicCount = (editalId: string) => {
         return topics.filter(t => t.editalId === editalId).length;
     };
@@ -40,15 +40,11 @@ export function EditalFilters({ activeFilter, onFilterChange }: EditalFiltersPro
             {editais.map(edital => {
                 const count = getTopicCount(edital.id);
                 const isActive = activeFilter === edital.id;
-                console.log(`🔘 ${edital.nome} - id: ${edital.id}, active: ${isActive}`);
                 return (
                     <button
                         key={edital.id}
                         className={`${styles.filterBtn} ${isActive ? styles.active : ''}`}
-                        onClick={() => {
-                            console.log(`🖱️ Clicou em: ${edital.nome} (${edital.id})`);
-                            onFilterChange(edital.id);
-                        }}
+                        onClick={() => onFilterChange(edital.id)}
                     >
                         <span className="material-icons">folder</span>
                         {edital.nome}

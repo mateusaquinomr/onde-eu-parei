@@ -117,7 +117,7 @@ export function EditableMetadata({
                             style={{ backgroundColor: option.color }}
                         />
                     )}
-                    <Text variant="body" className={styles.editableValue}>
+                    <Text className={styles.editableValue}>
                         {displayValue}
                     </Text>
                     <span className={styles.editIcon}>!</span>
@@ -137,7 +137,7 @@ export function EditableMetadata({
                     }
                 }}
             >
-                <Text variant="body" className={styles.editableValue}>
+                <Text className={styles.editableValue}>
                     {field.value}
                 </Text>
                 <span className={styles.editIcon}>!</span>
