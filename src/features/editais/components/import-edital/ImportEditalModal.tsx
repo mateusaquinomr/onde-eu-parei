@@ -5,6 +5,7 @@ import { TopicEditorRow } from './TopicEditorRow';
 import { enemTopicsData, type EnemTopic } from '../../data/templates/enemTopicsData';
 import { aleceSMDTopicsData, type AleceTopic } from '../../data/templates/aleceSMDTopicsData';
 import { ibgeTopicsData, type IbgeTopic } from '../../data/templates/ibgeTopicsData';
+import { ifpiTopicsData, type IfpiTopic } from '../../data/templates/ifpiTopicsData';
 import { useEditais } from '../../hooks/useEditais';
 import styles from './ImportEditalModal.module.css';
 
@@ -33,13 +34,13 @@ interface EditableTopic {
 
 export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalModalProps) {
     const [step, setStep] = useState<Step>('template');
-    const [selectedTemplate, setSelectedTemplate] = useState<'enem' | 'alece-smd' | 'ibge' | null>(null);
+    const [selectedTemplate, setSelectedTemplate] = useState<'enem' | 'alece-smd' | 'ibge' | 'ifpi' | null>(null);
     const [topics, setTopics] = useState<EditableTopic[]>([]);
     const { createEdital, editais, refresh: refreshEditais } = useEditais();
 
     if (!isOpen) return null;
 
-    const handleSelectTemplate = async (template: 'enem' | 'alece-smd' | 'ibge') => {
+    const handleSelectTemplate = async (template: 'enem' | 'alece-smd' | 'ibge' | 'ifpi') => {
         setSelectedTemplate(template);
 
         if (template === 'enem') {
@@ -79,6 +80,7 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
                     importance: content.importance
                 }))
             }));
+
             setTopics(loadedTopics);
         }
 
@@ -119,6 +121,7 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
                     importance: content.importance
                 }))
             }));
+
             setTopics(loadedTopics);
         }
 
@@ -159,6 +162,48 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
                     importance: content.importance
                 }))
             }));
+
+            setTopics(loadedTopics);
+        }
+
+        if (template === 'ifpi') {
+            let editalId = '';
+
+            try {
+                await refreshEditais();
+                const editalEncontrado = editais.find(e => e.nome === 'IFPI');
+
+                if (!editalEncontrado) {
+                    const novoEdital = await createEdital({
+                        nome: 'IFPI',
+                        banca: 'IDECAN',
+                        dataProva: new Date('2026-10-18'),
+                        local: 'Piauí'
+                    });
+                    editalId = novoEdital.id;
+                    await refreshEditais();
+                } else {
+                    editalId = editalEncontrado.id;
+                }
+            } catch (error) {
+                console.error('Erro ao criar/verificar edital:', error);
+                const editalExistente = editais.find(e => e.nome === 'IFPI');
+                editalId = editalExistente ? editalExistente.id : 'ifpi';
+            }
+
+            const loadedTopics: EditableTopic[] = ifpiTopicsData.map((topic: IfpiTopic) => ({
+                id: crypto.randomUUID(),
+                name: topic.name,
+                notebookColor: topic.notebookColor,
+                difficulty: topic.difficulty,
+                editalId: editalId,
+                contents: topic.contents.map(content => ({
+                    id: crypto.randomUUID(),
+                    title: content.title,
+                    importance: content.importance
+                }))
+            }));
+
             setTopics(loadedTopics);
         }
 
@@ -175,13 +220,21 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
         setTopics(prev => prev.filter(topic => topic.id !== topicId));
     };
 
-    const handleUpdateContent = (topicId: string, contentId: string, title: string, importance: 'pouco' | 'normal' | 'muita') => {
+    const handleUpdateContent = (
+        topicId: string,
+        contentId: string,
+        title: string,
+        importance: 'pouco' | 'normal' | 'muita'
+    ) => {
         setTopics(prev => prev.map(topic => {
             if (topic.id !== topicId) return topic;
+
             return {
                 ...topic,
                 contents: topic.contents.map(content =>
-                    content.id === contentId ? { ...content, title, importance } : content
+                    content.id === contentId
+                        ? { ...content, title, importance }
+                        : content
                 )
             };
         }));
@@ -190,6 +243,7 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
     const handleDeleteContent = (topicId: string, contentId: string) => {
         setTopics(prev => prev.map(topic => {
             if (topic.id !== topicId) return topic;
+
             return {
                 ...topic,
                 contents: topic.contents.filter(content => content.id !== contentId)
@@ -197,16 +251,26 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
         }));
     };
 
-    const handleAddContent = (topicId: string, newContent: { title: string; importance: 'pouco' | 'normal' | 'muita' }) => {
+    const handleAddContent = (
+        topicId: string,
+        newContent: {
+            title: string;
+            importance: 'pouco' | 'normal' | 'muita';
+        }
+    ) => {
         setTopics(prev => prev.map(topic => {
             if (topic.id !== topicId) return topic;
+
             return {
                 ...topic,
-                contents: [...topic.contents, {
-                    id: crypto.randomUUID(),
-                    title: newContent.title,
-                    importance: newContent.importance
-                }]
+                contents: [
+                    ...topic.contents,
+                    {
+                        id: crypto.randomUUID(),
+                        title: newContent.title,
+                        importance: newContent.importance
+                    }
+                ]
             };
         }));
     };
@@ -234,6 +298,15 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
         setTopics([]);
         onClose();
     };
+
+    const templateTitle =
+        selectedTemplate === 'enem'
+            ? 'ENEM'
+            : selectedTemplate === 'alece-smd'
+                ? 'ALECE - SMD'
+                : selectedTemplate === 'ibge'
+                    ? 'IBGE - TI'
+                    : 'IFPI';
 
     if (step === 'template') {
         return (
@@ -277,6 +350,16 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
                                     Analista Censitário - Tecnologia da Informação
                                 </p>
                             </button>
+
+                            <button
+                                className={styles.templateCard}
+                                onClick={() => handleSelectTemplate('ifpi')}
+                            >
+                                <h3 className={styles.templateTitle}>IFPI</h3>
+                                <p className={styles.templateDescription}>
+                                    Técnico-Administrativo em Educação - Tecnologia da Informação
+                                </p>
+                            </button>
                         </div>
                     </div>
 
@@ -295,7 +378,7 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>
-                        Importar tópicos - {selectedTemplate === 'enem' ? 'ENEM' : selectedTemplate === 'alece-smd' ? 'ALECE - SMD' : 'IBGE - TI'}
+                        Importar tópicos - {templateTitle}
                     </h2>
                     <button className={styles.closeButton} onClick={handleClose}>
                         <span className="material-icons">close</span>
@@ -347,6 +430,7 @@ export function ImportEditalModal({ isOpen, onClose, onImport }: ImportEditalMod
                     <Button variant="ghost" onClick={handleClose}>
                         Cancelar
                     </Button>
+
                     <Button
                         variant="primary"
                         onClick={handleImport}
