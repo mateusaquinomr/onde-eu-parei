@@ -27,7 +27,7 @@ interface SortableContentItemProps {
     onUpdateChecklist: (contentId: string, items: ChecklistItem[]) => void;
     onUpdateNotes: (contentId: string, notes: string) => void;
     onUpdateQuestions?: (contentId: string, lists: QuestionList[]) => void;
-    onCompleteReview?: (contentId: string) => void;
+    onCompleteReview?: (contentId: string, durationMinutes: number) => void;
     showDragHandle?: boolean;
 }
 

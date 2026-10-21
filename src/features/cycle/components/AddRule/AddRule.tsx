@@ -5,12 +5,12 @@ import type { Topic } from '../../../topics/types/topic.types';
 import type { CycleRule, LogicalOperator, TimeRelation } from '../../types/cycle.types';
 import styles from './AddRule.module.css';
 
-const logicalOperatorOptions = [
-    { label: 'deve estar', value: 'deve' },
-    { label: 'não deve estar', value: 'não deve' }
+const logicalOperatorOptions: { label: string; value: LogicalOperator }[] = [
+    { label: 'deve estar', value: 'deve estar' },
+    { label: 'não deve estar', value: 'não deve estar' }
 ];
 
-const timeRelationOptions = [
+const timeRelationOptions: { label: string; value: TimeRelation }[] = [
     { label: 'antes de', value: 'antes' },
     { label: 'depois de', value: 'depois' }
     // { label: 'entre', value: 'entre' }
@@ -23,7 +23,7 @@ interface AddRuleProps {
 
 export function AddRule({ topics, onAdd }: AddRuleProps) {
     const [topic1, setTopic1] = useState('');
-    const [logicalOperator, setLogicalOperator] = useState<LogicalOperator>('deve');
+    const [logicalOperator, setLogicalOperator] = useState<LogicalOperator>('deve estar');
     const [timeRelation, setTimeRelation] = useState<TimeRelation>('antes');
     const [topic2, setTopic2] = useState('');
 
@@ -43,7 +43,7 @@ export function AddRule({ topics, onAdd }: AddRuleProps) {
         });
 
         setTopic1('');
-        setLogicalOperator('deve');
+        setLogicalOperator('deve estar');
         setTimeRelation('antes');
         setTopic2('');
     };
@@ -56,7 +56,6 @@ export function AddRule({ topics, onAdd }: AddRuleProps) {
                         value={topic1}
                         onChange={(val) => setTopic1(val)}
                         options={topicOptions}
-
                     />
                 </div>
 
@@ -81,7 +80,6 @@ export function AddRule({ topics, onAdd }: AddRuleProps) {
                         value={topic2}
                         onChange={(val) => setTopic2(val)}
                         options={topicOptions}
-
                     />
                 </div>
 
