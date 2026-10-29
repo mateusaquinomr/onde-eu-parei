@@ -5,6 +5,7 @@ import { Button } from '@/shared/components/ui/Button/Button';
 import { Input } from '@/shared/components/ui/Form/Input';
 import { Select } from '@/shared/components/ui/Form/Select';
 import { DragHandle } from '../DragHandle/DragHandle';
+import { StudyTools } from '@/features/study/components/study-tools/StudyTools';
 import type { Content, ImportanceLevel, ChecklistItem, QuestionList } from '../../types/topic.types';
 import styles from './ContentItem.module.css';
 
@@ -57,6 +58,7 @@ const importanceLabels = {
 
 export function ContentItem({
     content,
+    topicId,
     index,
     isEditing,
     onEdit,
@@ -65,6 +67,8 @@ export function ContentItem({
     onDelete,
     onToggleComplete,
     onCopyToTopic,
+    onUpdateChecklist,
+    onUpdateQuestions,
     onCompleteReview,
     dragHandleProps
 }: ContentItemProps) {
@@ -370,6 +374,15 @@ export function ContentItem({
                             )}
                         </div>
                     </div>
+
+                    <StudyTools
+                        topicId={topicId}
+                        contentId={content.id}
+                        checklist={content.checklist}
+                        onUpdateChecklist={(items) => onUpdateChecklist?.(content.id, items)}
+                        questionLists={content.studyData?.questionLists}
+                        onUpdateQuestions={(lists) => onUpdateQuestions?.(content.id, lists)}
+                    />
                 </div>
             )}
         </div>

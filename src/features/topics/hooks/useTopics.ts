@@ -79,11 +79,11 @@ export function useTopics() {
 
     const updateLastAccessed = async (id: string) => {
         try {
-            const updatedTopic = await topicsService.updateLastAccessed(id);
+            const { lastAccessed } = await topicsService.updateLastAccessed(id);
             setTopics(prevTopics => prevTopics.map(t =>
-                t.id === id ? updatedTopic : t
+                t.id === id ? { ...t, lastAccessed } : t
             ));
-            return updatedTopic;
+            return lastAccessed;
         } catch (err) {
             setError(err as Error);
             throw err;
