@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Text } from '@/shared/components/ui/Text/Text';
 import { Button } from '@/shared/components/ui/Button/Button';
@@ -34,11 +34,13 @@ export function TopicDetailPage() {
     const [showMenu, setShowMenu] = useState(false);
     const [contentToCopy, setContentToCopy] = useState<Content | null>(null);
 
+    const lastAccessedFor = useRef<string | null>(null);
+
     useEffect(() => {
-        if (id && topic) {
-            updateLastAccessed(id);
-        }
-    }, [id, topic, updateLastAccessed]);
+        if (!id || !topic || lastAccessedFor.current === id) return;
+        lastAccessedFor.current = id;
+        updateLastAccessed(id);
+    }, [id, topic]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

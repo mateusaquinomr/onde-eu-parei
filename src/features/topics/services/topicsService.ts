@@ -55,9 +55,9 @@ export const topicsService = {
         await api.delete(`/topics/${id}`);
     },
 
-    async updateLastAccessed(id: string): Promise<Topic> {
-        const response = await api.put(`/topics/${id}`, { lastAccessed: new Date() });
-        return adaptTopic(response.data);
+    async updateLastAccessed(id: string): Promise<{ lastAccessed: Date }> {
+        const response = await api.post(`/topics/${id}/access`);
+        return response.data;
     },
 
     async addStudyMinutes(id: string, minutes: number): Promise<Topic> {
